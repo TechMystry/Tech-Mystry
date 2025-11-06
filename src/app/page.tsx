@@ -5,17 +5,17 @@ import TabbedServices from "./components/OurServices";
 import OurProcess from "./components/OurProcess";
 import ProjectsSection from "./components/ProjectsSection";
 import CallToActionSection from "./components/CallToActionSection";
+import ContactSection from "./components/ContactUs";
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <NextSection />
-      <AboutUsSection />
       <TabbedServices />
       <OurProcess />
       <ProjectsSection />
       <CallToActionSection />
+      <ContactSection />
     </>
   );
 }

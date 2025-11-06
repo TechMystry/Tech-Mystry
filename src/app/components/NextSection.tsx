@@ -1,121 +1,198 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Code2, Cloud, Rocket, Cog } from "lucide-react";
 
 const features = [
   {
-    title: 'Custom Web & Mobile Applications',
-    description:
-      'Engaging, user-focused apps built with modern frameworks tailored for your audience.',
-    iconColor: 'from-emerald-500 to-emerald-600',
-    icon: (
-      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zM8 16l-4-4 1.41-1.41L8 13.17l10.59-10.6L20 4l-12 12z" />
-      </svg>
-    ),
+    icon: <Code2 className="w-6 h-6 text-white" />,
+    title: "Custom Web & Mobile Apps",
+    text: "Seamless, scalable, and high-performance experiences tailored for your audience.",
   },
   {
-    title: 'Scalable Cloud Architecture',
-    description:
-      'Infrastructure designed to scale with your business, ensuring performance and reliability.',
-    iconColor: 'from-emerald-500 to-emerald-600',
-    icon: (
-      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M6 18H4a4 4 0 010-8h.26A6 6 0 1116 9h1a5 5 0 010 10H6z" />
-      </svg>
-    ),
+    icon: <Cloud className="w-6 h-6 text-white" />,
+    title: "Cloud Infrastructure",
+    text: "Resilient, secure, and future-ready systems that scale as you grow.",
   },
   {
-    title: 'Performance & SEO Optimization',
-    description:
-      'Optimized for blazing-fast speed and discoverability to grow your business organically.',
-    iconColor: 'from-emerald-500 to-emerald-600',
-    icon: (
-      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M2 12l5 4v-3h9v-2H7V8l-5 4zm17-9H9a2 2 0 00-2 2v4h2V5h10v14H9v-4H7v4a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z" />
-      </svg>
-    ),
+    icon: <Rocket className="w-6 h-6 text-white" />,
+    title: "Performance Optimization",
+    text: "Every millisecond engineered to deliver speed, reliability, and excellence.",
   },
 ];
 
-const NextSection: React.FC = () => {
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        delay: 1,
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' as any },
-    },
-  };
+const HeroWithNextSection = () => {
+  const { scrollYProgress } = useScroll();
+  const rotateGear = useTransform(scrollYProgress, [0, 1], [0, 1080]);
+  const gearY = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
   return (
-    <section
-      className="relative w-full flex flex-col items-center justify-center py-20 px-6 lg:px-20 bg-black text-white overflow-hidden"
-    >
-      <div className="relative z-10 max-w-7xl w-full mx-auto text-center space-y-12">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-4"
+    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] text-white">
+      {/* === Background Layers === */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Top wave gradient */}
+        <svg
+          className="absolute top-0 left-0 w-full opacity-10"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
         >
-          <p className="text-sm md:text-base uppercase tracking-widest text-emerald-400 font-medium">
-            THE TECHMYSTRY DIFFERENCE
-          </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-            Outsmart the Competition with{' '}
-            <span className="text-emerald-400">TechMystry’s Modern Stack</span>
-          </h2>
-          <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto">
-            We blend innovation and experience to deliver scalable, beautiful,
-            and secure web solutions for startups to enterprises.
-          </p>
+          <path
+            fill="url(#grad1)"
+            d="M0,224L60,234.7C120,245,240,267,360,245.3C480,224,600,160,720,149.3C840,139,960,181,1080,213.3C1200,245,1320,267,1380,277.3L1440,288L1440,320L0,320Z"
+          />
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style={{ stopColor: "#999", stopOpacity: 0.2 }} />
+              <stop offset="100%" style={{ stopColor: "#444", stopOpacity: 0.2 }} />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Rotating Gear */}
+        <motion.div
+          style={{ y: gearY, rotate: rotateGear }}
+          className="absolute top-32 right-20 text-gray-500/30"
+        >
+          <Cog size={90} strokeWidth={1.2} />
         </motion.div>
 
-        {/* Feature Cards */}
+        {/* Floating blurred lights */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4"
+          className="absolute top-10 left-10 w-[300px] h-[300px] bg-white/5 rounded-full blur-[120px]"
+          animate={{ y: [0, 80, 0], opacity: [0.5, 0.7, 0.5] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-gray-700/10 rounded-full blur-[140px]"
+          animate={{ y: [0, -50, 0], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Extra animated tech SVGs */}
+        <motion.svg
+          className="absolute top-1/3 left-20 w-12 h-12 text-gray-700/20"
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
         >
-          {features.map((feature, index) => (
+          <polygon points="12 2 19 21 5 21 12 2" strokeWidth="1.2" />
+        </motion.svg>
+
+        <motion.svg
+          className="absolute bottom-1/3 right-24 w-10 h-10 text-gray-700/25"
+          animate={{ rotate: [360, 0] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <circle cx="12" cy="12" r="8" strokeWidth="1.2" />
+        </motion.svg>
+
+        <motion.svg
+          className="absolute top-1/2 right-1/4 w-10 h-10 text-gray-600/25"
+          animate={{
+            y: [0, -20, 0],
+            rotate: [0, 180, 360],
+            opacity: [0.6, 0.8, 0.6],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <rect x="5" y="5" width="14" height="14" rx="3" strokeWidth="1.2" />
+        </motion.svg>
+      </div>
+
+      {/* === Section Content === */}
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="text-3xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-gray-100 via-white to-gray-400 bg-clip-text text-transparent"
+        >
+          The TechMystry Experience
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed mb-10"
+        >
+          Precision. Innovation. Execution. <br /> We don’t just build — we engineer timeless digital systems designed to inspire.
+        </motion.p>
+
+        {/* === Animated Features Grid === */}
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-center">
+          {features.map((f, i) => (
             <motion.div
-              key={index}
-              variants={cardVariants}
-              className="bg-slate-900/40 border border-slate-800 rounded-3xl p-6 flex flex-col items-start shadow-md hover:shadow-emerald-500/10 transition-all hover:ring-2 hover:ring-emerald-500 cursor-pointer backdrop-blur-sm"
+              key={i}
+              initial={{ opacity: 0, x: 200 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 1,
+                delay: i * 0.3,
+                ease: "easeOut",
+              }}
+              whileHover={{ scale: 1.05 }}
+              className="relative flex flex-col items-center text-center space-y-4 group"
             >
-              <div
-                className={`w-12 h-12 rounded-full bg-gradient-to-r ${feature.iconColor} flex items-center justify-center mb-4 shadow-md`}
+              {/* Glow Background */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gray-700/10 to-gray-900/20 opacity-0 group-hover:opacity-100 blur-lg transition-all"
+                transition={{ duration: 0.4 }}
+              />
+
+              {/* Icon Bubble */}
+              <motion.div
+                className="w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-500/20 to-gray-800/30 backdrop-blur-lg border border-gray-600/40 shadow-lg relative z-10"
+                whileHover={{ rotate: 8 }}
+                transition={{ type: 'spring', stiffness: 200 }}
               >
-                {feature.icon}
+                {f.icon}
+              </motion.div>
+
+              {/* Text */}
+              <div className="z-10">
+                <h3 className="text-sm md:text-base font-semibold text-gray-100 mb-1">
+                  {f.title}
+                </h3>
+                <p className="text-gray-400 text-xs md:text-sm max-w-[240px] mx-auto">
+                  {f.text}
+                </p>
               </div>
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-white">
-                {feature.title}
-              </h3>
-              <p className="text-gray-400 text-sm md:text-base">
-                {feature.description}
-              </p>
+
+              {/* Underline */}
+              <motion.div
+                initial={{ width: 0 }}
+                whileHover={{ width: "100%" }}
+                transition={{ duration: 0.5 }}
+                className="absolute bottom-0 left-0 right-0 mx-auto h-[1px] bg-gradient-to-r from-transparent via-gray-600/50 to-transparent"
+              />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
+
+      {/* Divider Line */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-700/50 to-transparent"
+        initial={{ width: 0 }}
+        whileInView={{ width: "100%" }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2 }}
+      />
     </section>
   );
 };
 
-export default NextSection;
+export default HeroWithNextSection;

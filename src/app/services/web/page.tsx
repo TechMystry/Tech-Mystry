@@ -1,96 +1,246 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import {
+  Zap,
+  Globe,
+  Shield,
+  Rocket,
+  Code,
+  Palette,
+  ArrowRight,
+  Check,
+  Star,
+  ChevronRight,
+} from 'lucide-react';
 
-const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } };
-const staggerContainer = { hidden: {}, visible: { transition: { staggerChildren: 0.2 } } };
-
-const WebServicePage = () => {
+export default function WebDevelopment() {
   return (
-    <section className="relative w-full min-h-screen py-20 text-white" style={{ backgroundColor: "#0B1623" }}>
-      <div className="container mx-auto px-6 lg:px-20 space-y-16">
+    <motion.div
+      initial={{ opacity: 0, y: 80 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: 'easeOut' }}
+      className="min-h-screen bg-white text-black px-6 py-24 relative overflow-hidden"
+    >
+      {/* Subtle Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,#f0f0f0_1px,transparent_1px),linear-gradient(#f0f0f0_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
 
-        {/* Page Title */}
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6">
-            <span className="bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-              Web Development Services
-            </span>
+      <div className="relative max-w-5xl mx-auto space-y-16">
+        {/* Hero */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="text-center"
+        >
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
+            Web Development That Drives Revenue
           </h1>
-          <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
-            We provide end-to-end web development solutions that transform ideas into functional, high-performing websites and applications. From startups to enterprises, we deliver scalable, secure, and SEO-optimized websites tailored to your business needs.
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
+            We build <strong>fast, secure, SEO-optimized</strong> websites that convert visitors into customers.
           </p>
         </motion.div>
 
-        {/* Detailed Sections */}
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-12">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="text-lg text-gray-800 leading-relaxed max-w-4xl mx-auto font-medium"
+        >
+          From <strong>high-converting landing pages</strong> to <strong>complex SaaS platforms</strong>, every line of code is written with one goal: <em>your business success</em>.
+        </motion.p>
 
-          {/* What We Offer */}
-          <motion.div variants={fadeUp} className="space-y-4">
-            <h2 className="text-3xl font-bold text-emerald-400">What We Offer</h2>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Our web development services cover everything from responsive front-end interfaces to robust back-end systems. We create websites that are visually appealing, intuitive to navigate, and fully optimized for performance and SEO.
-            </p>
-            <ul className="list-disc list-inside text-gray-400 space-y-2">
-              <li>Custom Website Design & Development</li>
-              <li>High-performance Web Applications</li>
-              <li>SEO-friendly Architecture & On-page Optimization</li>
-              <li>Responsive, Mobile-first Websites</li>
-              <li>E-commerce & CMS Integration</li>
-              <li>Progressive Web Applications (PWA)</li>
+        {/* Expertise + Why Trust */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="grid md:grid-cols-2 gap-12"
+        >
+          <div>
+            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+              <Zap className="w-7 h-7" /> What We Build
+            </h3>
+            <ul className="space-y-4 text-gray-800">
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <span className="font-medium"><strong>Responsive Websites</strong> – Pixel-perfect on every device</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <span className="font-medium"><strong>Custom CMS & Dashboards</strong> – You control, we empower</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <span className="font-medium"><strong>API Integrations</strong> – Stripe, CRM, AI, and more</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <span className="font-medium"><strong>Micro-interactions</strong> – Delight users, boost engagement</span>
+              </li>
             </ul>
-          </motion.div>
-
-          {/* Why Web Development Matters */}
-          <motion.div variants={fadeUp} className="space-y-4">
-            <h2 className="text-3xl font-bold text-emerald-400">Why Web Development Matters for Your Business</h2>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              A website is often the first interaction your customers have with your brand. A well-built, fast, and responsive website increases user trust, engagement, and conversion rates. Our focus is on creating websites that not only look great but also perform exceptionally well on all devices.
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+              <Rocket className="w-7 h-7" /> Why Clients Trust Us
+            </h3>
+            <p className="text-gray-800 leading-relaxed mb-4 font-medium">
+              We’re not freelancers. We’re <strong>your technical co-founder</strong>.
             </p>
-          </motion.div>
-
-          {/* Our Process */}
-          <motion.div variants={fadeUp} className="space-y-4">
-            <h2 className="text-3xl font-bold text-emerald-400">Our Web Development Process</h2>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              We follow a structured approach to ensure every project is delivered on time, within budget, and exceeds expectations:
-            </p>
-            <ol className="list-decimal list-inside text-gray-400 space-y-2">
-              <li>Consultation & Requirement Analysis</li>
-              <li>UI/UX Design & Prototyping</li>
-              <li>Front-end and Back-end Development</li>
-              <li>SEO & Performance Optimization</li>
-              <li>Testing, QA & Launch</li>
-              <li>Ongoing Support & Maintenance</li>
-            </ol>
-          </motion.div>
-
-          {/* Benefits for Clients */}
-          <motion.div variants={fadeUp} className="space-y-4">
-            <h2 className="text-3xl font-bold text-emerald-400">Benefits for Your Business</h2>
-            <ul className="list-disc list-inside text-gray-400 space-y-2">
-              <li>Enhanced brand credibility with professional design.</li>
-              <li>Improved search engine visibility with SEO-friendly websites.</li>
-              <li>Increased conversion through intuitive navigation and fast performance.</li>
-              <li>Future-proof solutions using modern technologies and best practices.</li>
+            <ul className="space-y-3 text-gray-800">
+              <li className="flex items-center gap-2">
+                <Star className="w-5 h-5" />
+                <strong className="font-semibold">100% On-Time Delivery</strong>
+              </li>
+              <li className="flex items-center gap-2">
+                <Shield className="w-5 h-5" />
+                <strong className="font-semibold">90-Day Bug-Free Guarantee</strong>
+              </li>
+              <li className="flex items-center gap-2">
+                <Globe className="w-5 h-5" />
+                <strong className="font-semibold">SEO & Core Web Vitals Optimized</strong>
+              </li>
             </ul>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* Call to Action */}
-          <motion.div variants={fadeUp} className="text-center mt-12">
-            <p className="text-gray-300 text-lg md:text-xl mb-6">
-              Ready to launch a website that elevates your business? Let’s build something amazing together.
-            </p>
-            <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-full transition-all shadow-md hover:shadow-emerald-400/30">
-              Get Started
-            </button>
-          </motion.div>
+        {/* Tech Stack */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
+        >
+          <h3 className="text-2xl font-bold mb-6 text-center">Powered by Modern Tech</h3>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-6 text-center">
+            {['Next.js', 'React', 'TypeScript', 'Tailwind', 'Node.js', 'Vercel'].map((tech) => (
+              <div key={tech} className="flex flex-col items-center">
+                <div className="w-12 h-12 bg-black rounded-xl mb-2 flex items-center justify-center">
+                  <Code className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-sm font-medium">{tech}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
+        {/* Case Study */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.1 }}
+          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
+        >
+          <h3 className="text-2xl font-bold mb-4">Real Result: SaaS Dashboard</h3>
+          <p className="text-gray-800 mb-4 font-medium">
+            <strong>Client:</strong> FinTech startup | <strong>Goal:</strong> Reduce churn
+          </p>
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-3xl font-bold">87%</p>
+              <p className="text-sm font-medium">User Retention</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold">2.1s to 0.8s</p>
+              <p className="text-sm font-medium">Load Time</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold">+340%</p>
+              <p className="text-sm font-medium">Feature Adoption</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Process */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.3 }}
+        >
+          <h3 className="text-2xl font-bold mb-6 text-center">Our Proven Process</h3>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { step: '1', title: 'Discovery', desc: 'We learn your goals, users, KPIs' },
+              { step: '2', title: 'Design', desc: 'Wireframes to High-fidelity to Approval' },
+              { step: '3', title: 'Develop', desc: 'Clean, modular, future-proof code' },
+              { step: '4', title: 'Launch & Grow', desc: 'Deploy, monitor, iterate' },
+            ].map((p) => (
+              <div key={p.step} className="text-center">
+                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3">
+                  {p.step}
+                </div>
+                <h4 className="font-semibold mb-1">{p.title}</h4>
+                <p className="text-sm text-gray-700 font-medium">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Guarantee */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.5 }}
+          className="bg-white border border-gray-300 rounded-2xl p-8 text-center shadow-sm"
+        >
+          <Shield className="w-12 h-12 mx-auto mb-4" />
+          <h3 className="text-2xl font-bold mb-3">Our Promise</h3>
+          <p className="text-gray-800 max-w-2xl mx-auto font-medium">
+            Your site will load in <strong>under 1 second</strong>, score <strong>95+ on Lighthouse</strong>, and be <strong>fully responsive</strong>.  
+            If not — <strong>we fix it for free</strong>.
+          </p>
+        </motion.div>
+
+        {/* FAQ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.7 }}
+          className="space-y-6"
+        >
+          <h3 className="text-2xl font-bold text-center mb-8">Got Questions?</h3>
+          {[
+            { q: 'How long does a website take?', a: '4–8 weeks. MVP in 2 weeks.' },
+            { q: 'Do you provide hosting?', a: 'Yes — Vercel, AWS, or your choice. Fully managed.' },
+            { q: 'Will my site rank on Google?', a: 'Yes. We bake SEO into every build.' },
+          ].map((faq, i) => (
+            <details key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-6 cursor-pointer">
+              <summary className="font-semibold text-lg flex justify-between items-center list-none">
+                {faq.q}
+                <ChevronRight className="w-5 h-5 transition-transform duration-300" />
+              </summary>
+              <p className="mt-3 text-gray-800 font-medium">{faq.a}</p>
+            </details>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.9 }}
+          className="text-center"
+        >
+          <h3 className="text-3xl font-bold mb-4">Ready to Launch Your Next Big Thing?</h3>
+          <p className="text-gray-800 mb-8 max-w-2xl mx-auto font-medium">
+            Let’s turn your vision into a high-performing, revenue-generating website.
+          </p>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg"
+          >
+            Start Your Project
+            <ArrowRight className="w-6 h-6" />
+          </a>
         </motion.div>
       </div>
-    </section>
-  );
-};
 
-export default WebServicePage;
+      {/* Smooth Chevron Rotate */}
+      <style jsx>{`
+        details[open] summary > svg {
+          transform: rotate(90deg);
+        }
+      `}</style>
+    </motion.div>
+  );
+}

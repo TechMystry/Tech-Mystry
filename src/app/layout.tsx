@@ -1,5 +1,4 @@
 import "./globals.css";
-import SplashScreenWrapper from "./components/SplashScreenWrapper";
 import Navbar from "./components/NavBar";
 import AnimatedFooter from "./components/AnimatedFooter";
 
@@ -20,11 +19,9 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body>
-        <SplashScreenWrapper>
-          <Navbar />
-          {children}
-          <AnimatedFooter />
-        </SplashScreenWrapper>
+        <Navbar />
+        {children}
+        <AnimatedFooter />
       </body>
     </html>
   );

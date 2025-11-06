@@ -1,92 +1,232 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const steps = [
   {
-    title: "Discovery & Planning",
-    description:
-      "We collaborate with you to understand your unique business needs, conducting in-depth research and developing a strategic roadmap to ensure project success.",
+    id: "S01",
+    title: "Design a New SaaS",
+    subtitle:
+      "Start your digital journey with a unique and scalable design foundation tailored to your business goals.",
+    desc: [
+      "Collaborate directly with our expert SaaS designers who understand both aesthetics and usability.",
+      "Translate your ideas into interactive wireframes and high-converting user flows.",
+      "Get pixel-perfect designs that align with your brand identity and product objectives.",
+      "Launch your MVP faster with our efficient design sprint methodology.",
+      "Avoid recruitment delays and instantly onboard a skilled design partner through our flexible subscription model.",
+    ],
+    progress: 25,
+    image: "/design.svg",
   },
   {
-    title: "Design & Development",
-    description:
-      "Our expert team crafts visually stunning and functional designs, followed by robust development using the latest technologies to bring your vision to life.",
+    id: "S02",
+    title: "Enhance Your Product",
+    subtitle:
+      "Elevate your existing product experience with modern interfaces, refined workflows, and intuitive usability.",
+    desc: [
+      "Perform in-depth UI/UX audits to identify bottlenecks and friction points.",
+      "Redesign critical user journeys to increase engagement and reduce drop-offs.",
+      "Introduce design consistency across your entire ecosystem with reusable UI components.",
+      "Ensure your design system is flexible, scalable, and aligned with your long-term roadmap.",
+      "Enhance accessibility and responsiveness for a flawless experience on every device.",
+    ],
+    progress: 50,
+    image: "/Product.svg",
   },
   {
-    title: "Testing & Quality Assurance",
-    description:
-      "We rigorously test every aspect of the solution to guarantee optimal performance, security, and a seamless user experience across all platforms.",
+    id: "S03",
+    title: "Deploy to Scale",
+    subtitle:
+      "Seamlessly move from design to development with structured systems and design ops built for scalability.",
+    desc: [
+      "Prepare detailed design documentation and developer-friendly handoff files.",
+      "Implement a scalable component library for faster future iterations.",
+      "Maintain consistent brand visuals across platforms (web, mobile, dashboard, etc.).",
+      "Collaborate directly with developers to ensure design accuracy during integration.",
+      "Empower your internal team with clearly defined design guidelines and standards.",
+    ],
+    progress: 75,
+    image: "/Development.svg",
   },
   {
-    title: "Deployment & Launch",
-    description:
-      "With meticulous planning, we deploy your digital product and ensure a smooth launch, marking the beginning of its impact on your audience.",
-  },
-  {
-    title: "Ongoing Support & Evolution",
-    description:
-      "Our commitment continues post-launch with dedicated support, updates, and strategic enhancements to keep your solution thriving.",
+    id: "S04",
+    title: "Launch & Grow",
+    subtitle:
+      "Transform your design into a successful product launch with post-launch support and continuous improvement.",
+    desc: [
+      "Create visually striking launch materials, marketing assets, and campaign creatives.",
+      "Conduct pre-launch QA to ensure design integrity across browsers and devices.",
+      "Monitor early user behavior and refine UX based on real-world data.",
+      "Provide ongoing design iterations to align with growth, feedback, and trends.",
+      "Build a long-term partnership with TechMystry — where design evolves with your business.",
+    ],
+    progress: 100,
+    image: "/Grow.svg",
   },
 ];
 
-const OurProcess: React.FC = () => {
+export default function ProcessSection() {
+  const [active, setActive] = useState(0);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
+  const controls = useAnimation();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const startAutoPlay = () => {
+      intervalRef.current = setInterval(() => {
+        setActive((prev) => (prev + 1) % steps.length);
+      }, 5000);
+    };
+
+    startAutoPlay();
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isInView]);
+
+  useEffect(() => {
+    controls
+      .start({
+        opacity: 0,
+        y: 20,
+        transition: { duration: 0.3, ease: "easeInOut" },
+      })
+      .then(() => {
+        controls.start({
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.5, ease: "easeOut" },
+        });
+      });
+  }, [active, controls]);
+
+  const handleManualClick = (i: number) => {
+    setActive(i);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(() => {
+      setActive((prev) => (prev + 1) % steps.length);
+    }, 5000);
+  };
+
+  const step = steps[active];
+
   return (
     <section
-    className="py-20 px-6 lg:px-24 text-white relative overflow-hidden bg-black">
-      <div className="max-w-7xl mx-auto text-center space-y-16 relative z-10">
-        {/* Heading */}
-        <motion.h3
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl sm:text-5xl font-extrabold relative"
-        >
-          Our{" "}
-          <span className="bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-            Process
-          </span>
-          <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-emerald-600 rounded-full opacity-75"></div>
-        </motion.h3>
+      ref={sectionRef}
+      id="process"
+      className="relative w-full min-h-screen bg-white flex flex-col items-center justify-center px-6 md:px-10 py-20 overflow-hidden"
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="w-full max-w-6xl mb-16"
+      >
+        <div className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+          / How It Works /
+        </div>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <h2 className="text-2xl md:text-3xl font-bold leading-tight text-gray-900">
+            Crafting Growth
+            <br />
+            Through Digitalization with{" "}
+            <span className="inline-block font-extrabold tracking-tight text-gray-800">
+              Tech<span className="underline decoration-gray-300">Mystry</span>
+            </span>
+          </h2>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
-        >
-          Discover the structured and innovative approach we take to transform
-          your digital vision into a thriving reality.
-        </motion.p>
+          <p className="max-w-md text-sm md:text-base leading-relaxed text-gray-600">
+            From concept to conversion — we simplify complex ideas into powerful
+            digital solutions. Our process is designed to ensure speed,
+            creativity, and scalability every step of the way.
+          </p>
+        </div>
+      </motion.div>
 
-        {/* Steps */}
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3 text-left">
-          {steps.map((step, i) => (
+      {/* Title + Progress */}
+      <div className="w-full max-w-6xl mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <h3 className="text-xl md:text-2xl font-semibold text-gray-900">
+          {step.title}
+        </h3>
+
+        <div className="flex items-center gap-4 w-full md:w-1/2">
+          <div className="flex items-center text-[10px] uppercase tracking-widest text-gray-500 space-x-3">
+            {steps.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => handleManualClick(i)}
+                className={`transition-all duration-300 ${
+                  i === active
+                    ? "text-gray-900 font-bold"
+                    : "text-gray-400 hover:text-gray-600"
+                }`}
+              >
+                {s.id}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex-1 h-[6px] bg-gray-200 rounded-full overflow-hidden">
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: i * 0.15 }}
-              className="p-8 rounded-2xl bg-slate-800/40 border border-slate-700 shadow-lg hover:shadow-emerald-700/30 hover:bg-slate-800/60 transition-all duration-300"
-            >
-              <div className="flex items-center mb-6">
-                <div className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-2xl shadow-md transform hover:scale-105 transition-transform duration-300">
-                  {i + 1}
-                </div>
-                <h4 className="ml-6 text-xl font-semibold text-white hover:text-emerald-400 transition-colors duration-300">
-                  {step.title}
-                </h4>
-              </div>
-              <p className="text-gray-400 text-base leading-snug">
-                {step.description}
-              </p>
-            </motion.div>
-          ))}
+              className="h-full bg-gray-900"
+              initial={{ width: 0 }}
+              animate={{ width: `${step.progress}%` }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            />
+          </div>
+
+          <span className="text-[10px] text-gray-500 font-medium w-10 text-right">
+            {step.progress}%
+          </span>
         </div>
       </div>
+
+      {/* Animated Card */}
+      <motion.div
+        animate={controls}
+        className="w-full max-w-5xl bg-gray-50 rounded-3xl border border-gray-100 shadow-md hover:shadow-lg transition-shadow duration-300 p-8 md:p-10 flex flex-col md:flex-row items-center gap-10"
+      >
+        {/* Image */}
+        <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
+          <motion.img
+            key={step.image}
+            src={step.image}
+            alt={step.title}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="w-[300px] h-[220px] md:w-[380px] md:h-[280px] object-contain"
+          />
+        </div>
+
+        {/* Text Content */}
+        <div className="flex flex-col justify-center w-full md:w-1/2 text-gray-700">
+          <p className="text-sm md:text-base mb-4 font-medium text-gray-700">
+            {step.subtitle}
+          </p>
+
+          <div className="space-y-2">
+            {step.desc.map((d, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-2 text-xs md:text-sm text-gray-600"
+              >
+                <ArrowRight className="w-4 h-4 mt-[3px] text-gray-400" />
+                {d}
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
-};
-
-export default OurProcess;
+}
