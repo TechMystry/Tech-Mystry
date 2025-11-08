@@ -2,17 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Phone,
   Mail,
   MapPin,
   ArrowRight,
-  Twitter,
-  Github,
   Linkedin,
   Instagram,
+  Youtube,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -36,18 +34,16 @@ export default function AnimatedFooter() {
   ];
 
   const quickLinks = [
-    { label: "Home", href: "#HeroSection" },
-    { label: "About", href: "#AboutUsSection" },
-    { label: "Services", href: "#TabbedServices" },
+    { label: "Home", href: "#hero" },
+    { label: "Services", href: "#expertise" },
     { label: "Projects", href: "#projects" },
     { label: "Contact", href: "/ContactForm" },
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: "https://twitter.com/techmystry" },
-    { icon: Github, href: "https://github.com/techmystry" },
     { icon: Linkedin, href: "https://linkedin.com/company/techmystry" },
     { icon: Instagram, href: "https://instagram.com/techmystry" },
+    { icon: Youtube, href: "https://youtube.com/techmystry" },
   ];
 
   const currentYear = new Date().getFullYear();
@@ -75,20 +71,25 @@ export default function AnimatedFooter() {
 
   return (
     <>
-      {/* Floating WhatsApp Icon */}
-      <a
-        href="https://wa.me/918805526198"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed z-50 bottom-5 right-5 w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
-        aria-label="Chat on WhatsApp"
-      >
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-          alt="WhatsApp"
-          className="w-7 h-7"
-        />
-      </a>
+{/* Floating WhatsApp Icon - Center Right (Touching Edge) with Glow Effect */}
+<a
+  href="https://wa.me/918805526198"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed z-50 top-1/2 -translate-y-1/2 right-0 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(37,211,102,0.8)] hover:scale-110 transition-transform duration-300 border-2 border-white/80 overflow-visible"
+  aria-label="Chat on WhatsApp"
+>
+  {/* Sparkle / Crystal Glow */}
+  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#25D366]/60 via-transparent to-[#25D366]/60 blur-xl opacity-80 animate-pulse" />
+
+  {/* WhatsApp Icon */}
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+    alt="WhatsApp"
+    className="w-8 h-8 relative z-10"
+  />
+</a>
+
 
       <footer className="relative overflow-hidden bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300 text-gray-800 py-10 sm:py-12">
         {/* Background Accent Glow */}
@@ -137,6 +138,7 @@ export default function AnimatedFooter() {
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-gray-500" />
                 <span>+91 8805526198</span>
+                <span>/ +91 7038230674</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-gray-500" />
@@ -229,7 +231,7 @@ export default function AnimatedFooter() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600">
+        <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 mx-5 sm:mx-10">
           <p>© {currentYear} TechMystry. All rights reserved.</p>
           <p className="mt-2 sm:mt-0">
             Designed with ❤️ by <span className="font-semibold">TechMystry</span>

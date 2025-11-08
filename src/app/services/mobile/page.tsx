@@ -3,239 +3,208 @@
 import { motion } from 'framer-motion';
 import {
   Smartphone,
+  Cpu,
+  Rocket,
   Zap,
   Shield,
-  Globe,
-  ArrowRight,
-  Check,
-  Star,
-  ChevronRight,
-  Code,
+  Layers,
   Palette,
-  Rocket,
-  Activity,
+  ChevronRight,
 } from 'lucide-react';
 
-export default function MobileApps() {
+const container: any = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+};
+
+const item: any = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+};
+
+export default function MobileDevelopment() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: 'easeOut' }}
-      className="min-h-screen bg-white text-black px-6 py-24 relative overflow-hidden"
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="min-h-screen bg-[#fdfaf6] text-black px-6 md:px-16 py-20 font-[Inter] overflow-hidden relative"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,#f0f0f0_1px,transparent_1px),linear-gradient(#f0f0f0_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
+      {/* Background — soft warm tint */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#fefdfb] to-[#f9f6f1] pointer-events-none" />
 
-      <div className="relative max-w-5xl mx-auto space-y-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-center"
+      <div className="relative max-w-7xl mx-auto space-y-36">
+        {/* HERO — centered vertically */}
+        <motion.section
+          variants={item}
+          className="text-center max-w-5xl mx-auto min-h-[75vh] flex flex-col justify-center"
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
-            Mobile Apps That Win Users
+          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight mb-8">
+            Elegant <span className="text-gray-400">Mobile Experiences</span>
           </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Native & cross-platform apps that load fast, feel native, and grow your business.
+          <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-light">
+            We craft sleek, intuitive mobile apps that blend design precision,
+            seamless functionality, and performance built to engage and
+            inspire on every device.
           </p>
-        </motion.div>
+        </motion.section>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="text-lg text-gray-800 max-w-4xl mx-auto"
+        {/* SECTION 1 - STRATEGY */}
+        <motion.section
+          variants={item}
+          className="flex flex-col md:flex-row items-center gap-16"
         >
-          We code in <strong>React Native, Flutter, Swift, Kotlin</strong> — and deliver apps that <strong>load in less than 1s, rank in App Stores, and drive real growth</strong>.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="grid md:grid-cols-2 gap-12"
-        >
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <Smartphone className="w-7 h-7" /> What We Build
-            </h3>
-            <ul className="space-y-4 text-gray-800">
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>Native iOS & Android</strong> – Swift, Kotlin</span>
+          <div className="md:w-1/2 space-y-6">
+            <h2 className="text-4xl font-bold tracking-tight">
+              Design Meets Function
+            </h2>
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Every app begins with empathy and insight. We explore user
+              behavior, brand tone, and long-term goals to design apps that are
+              not only functional but emotionally resonant.  
+              <br />
+              <span className="font-semibold text-black">
+                Because great apps aren’t just built—they’re felt.
+              </span>
+            </p>
+            <ul className="space-y-3 text-gray-700">
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> UX Strategy & Wireframes
               </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>Cross-Platform</strong> – React Native, Flutter</span>
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> User Flow Optimization
               </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>UI/UX Design</strong> – Figma, animations</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>App Store Optimization</strong> – Get discovered</span>
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> Platform Architecture Plan
               </li>
             </ul>
           </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <Rocket className="w-7 h-7" /> Why Mobile Matters
+
+          <div className="md:w-1/2 bg-black text-white rounded-3xl p-10 shadow-2xl hover:scale-[1.02] transition-transform">
+            <Smartphone className="w-12 h-12 mb-6 text-white" />
+            <h3 className="text-2xl font-semibold mb-3">
+              Experience First Approach
             </h3>
-            <ul className="space-y-3 text-gray-800">
-              <li className="flex items-center gap-2">
-                <Star className="w-5 h-5" />
-                <strong>4.8+ App Store Rating</strong>
-              </li>
-              <li className="flex items-center gap-2">
-                <Activity className="w-5 h-5" />
-                <strong>Push + In-App Messaging</strong>
-              </li>
-              <li className="flex items-center gap-2">
-                <Shield className="w-5 h-5" />
-                <strong>Offline + Secure</strong>
-              </li>
-            </ul>
+            <p className="text-gray-200 leading-relaxed">
+              Every interaction, animation, and layout decision is made to
+              enhance user delight. We design for flow, speed, and engagement
+              — turning complex actions into effortless gestures.
+            </p>
           </div>
-        </motion.div>
+        </motion.section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Built With the Best</h3>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-6 text-center">
-            {['React Native', 'Flutter', 'Swift', 'Kotlin', 'Firebase', 'Figma'].map((tech) => (
-              <div key={tech} className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-black rounded-xl mb-2 flex items-center justify-center">
-                  {tech.includes('React') || tech.includes('Flutter') ? (
-                    <Code className="w-6 h-6 text-white" />
-                  ) : tech.includes('Figma') ? (
-                    <Palette className="w-6 h-6 text-white" />
-                  ) : (
-                    <Smartphone className="w-6 h-6 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{tech}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
-        >
-          <h3 className="text-2xl font-bold mb-4">Case: Fitness App</h3>
-          <p className="text-gray-800 mb-4">
-            <strong>Goal:</strong> Increase daily active users
-          </p>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <p className="text-3xl font-bold">+420%</p>
-              <p className="text-sm text-gray-600">Daily Active Users</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">4.9 stars</p>
-              <p className="text-sm text-gray-600">App Store Rating</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">1.2s</p>
-              <p className="text-sm text-gray-600">Avg. Load Time</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3 }}
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">From Idea to App Store</h3>
-          <div className="grid md:grid-cols-4 gap-6">
+        {/* SECTION 2 - WHAT WE BUILD */}
+        <motion.section variants={item} className="text-center">
+          <h2 className="text-5xl font-bold mb-16">What We Build</h2>
+          <div className="grid md:grid-cols-3 gap-10">
             {[
-              { step: '1', title: 'Ideate', desc: 'Validate idea, define MVP' },
-              { step: '2', title: 'Design', desc: 'Wireframes to UI to Prototype' },
-              { step: '3', title: 'Build', desc: 'Code, test, refine' },
-              { step: '4', title: 'Launch', desc: 'Submit, monitor, update' },
-            ].map((p) => (
-              <div key={p.step} className="text-center">
-                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3">
-                  {p.step}
-                </div>
-                <h4 className="font-semibold mb-1">{p.title}</h4>
-                <p className="text-sm text-gray-700">{p.desc}</p>
-              </div>
+              {
+                icon: Rocket,
+                title: 'Startup MVPs',
+                desc: 'Rapidly built prototypes and scalable MVPs ready for investor demos and early adopters.',
+              },
+              {
+                icon: Smartphone,
+                title: 'iOS & Android Apps',
+                desc: 'Cross-platform or native apps that deliver seamless, responsive user experiences.',
+              },
+              {
+                icon: Cpu,
+                title: 'IoT & Smart Apps',
+                desc: 'Apps that connect with smart devices, APIs, and sensors for next-gen functionality.',
+              },
+              {
+                icon: Shield,
+                title: 'Secure Applications',
+                desc: 'Robust data protection and compliance baked into every stage of development.',
+              },
+              {
+                icon: Palette,
+                title: 'Beautiful Interfaces',
+                desc: 'Polished, consistent, and delightful design systems built with motion and intention.',
+              },
+              {
+                icon: Layers,
+                title: 'Cross-Platform Systems',
+                desc: 'Single codebase apps powered by React Native or Flutter optimized for performance.',
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={card.title}
+                whileHover={{
+                  y: -10,
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.1)',
+                }}
+                className={`p-8 rounded-3xl border-2 ${
+                  i % 2 === 0
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-black border-gray-200'
+                } transition-all hover:scale-[1.02]`}
+              >
+                <card.icon
+                  className={`w-10 h-10 mb-4 ${
+                    i % 2 === 0 ? 'text-white' : 'text-black'
+                  }`}
+                />
+                <h3 className="text-2xl font-semibold mb-3">{card.title}</h3>
+                <p
+                  className={`${
+                    i % 2 === 0 ? 'text-gray-300' : 'text-gray-700'
+                  } leading-relaxed`}
+                >
+                  {card.desc}
+                </p>
+              </motion.div>
             ))}
           </div>
-        </motion.div>
+        </motion.section>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5 }}
-          className="bg-white border border-gray-300 rounded-2xl p-8 text-center shadow-sm"
+        {/* SECTION 3 - TECH STACK */}
+        <motion.section
+          variants={item}
+          className="flex flex-col md:flex-row items-center gap-16"
         >
-          <Shield className="w-12 h-12 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-3">Our Mobile Promise</h3>
-          <p className="text-gray-800 max-w-2xl mx-auto">
-            Your app will <strong>load in under 1.5s</strong>, work <strong>offline</strong>, and be <strong>App Store ready</strong>.  
-            If not — <strong>we fix it free</strong>.
+          <div className="md:w-1/2 bg-black text-white rounded-3xl p-10 shadow-2xl hover:scale-[1.02] transition-transform">
+            <h2 className="text-4xl font-bold mb-6">Modern Tech Stack</h2>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              We combine proven technologies with modern performance frameworks
+              to deliver apps that are fast, flexible, and future-proof.
+            </p>
+            <ul className="mt-6 space-y-3 text-gray-300">
+              <li>React Native + Expo</li>
+              <li>TypeScript + Zustand</li>
+              <li>Firebase + Supabase</li>
+              <li>Node.js + GraphQL APIs</li>
+            </ul>
+          </div>
+
+          <div className="md:w-1/2 space-y-8">
+            <h3 className="text-3xl font-semibold">Performance Obsessed</h3>
+            <p className="text-gray-700 text-lg leading-relaxed">
+              From milliseconds of render time to offline readiness, we fine-tune
+              every app for speed, battery efficiency, and real-world usage.
+            </p>
+          </div>
+        </motion.section>
+
+        {/* FINAL SECTION */}
+        <motion.section
+          variants={item}
+          className="text-center border-t border-gray-200 pt-20"
+        >
+          <h2 className="text-4xl font-bold mb-6">
+            Let’s Build Mobile That Matters
+          </h2>
+          <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+            We merge innovation, design, and technology to create apps that
+            inspire loyalty and drive growth — purposeful, polished, and
+            built to last.
           </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.7 }}
-          className="space-y-6"
-        >
-          <h3 className="text-2xl font-bold text-center mb-8">Got Questions?</h3>
-          {[
-            { q: 'How long does an app take?', a: '4–10 weeks. MVP in 3 weeks.' },
-            { q: 'Do you publish to stores?', a: 'Yes — we handle Apple & Google submissions.' },
-            { q: 'Can you update my old app?', a: 'Absolutely. We modernize legacy code.' },
-          ].map((faq, i) => (
-            <details key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-6 cursor-pointer">
-              <summary className="font-semibold text-lg flex justify-between items-center list-none">
-                {faq.q}
-                <ChevronRight className="w-5 h-5 transition-transform duration-300" />
-              </summary>
-              <p className="mt-3 text-gray-800">{faq.a}</p>
-            </details>
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.9 }}
-          className="text-center"
-        >
-          <h3 className="text-3xl font-bold mb-4">Ready to Go Mobile?</h3>
-          <p className="text-gray-800 mb-8 max-w-2xl mx-auto">
-            Let’s build an app your users will love — and your business will grow from.
-          </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg"
-          >
-            Build Your App
-            <ArrowRight className="w-6 h-6" />
-          </a>
-        </motion.div>
+        </motion.section>
       </div>
-
-      <style jsx>{`
-        details[open] summary > svg {
-          transform: rotate(90deg);
-        }
-      `}</style>
     </motion.div>
   );
 }

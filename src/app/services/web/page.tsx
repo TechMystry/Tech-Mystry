@@ -2,245 +2,207 @@
 
 import { motion } from 'framer-motion';
 import {
-  Zap,
+  Code,
   Globe,
   Shield,
   Rocket,
-  Code,
+  Zap,
   Palette,
-  ArrowRight,
-  Check,
-  Star,
+  Layers,
   ChevronRight,
 } from 'lucide-react';
 
-export default function WebDevelopment() {
+const container: any = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+};
+
+const item: any = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+};
+
+export default function WebDevelopmentBW() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 80 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: 'easeOut' }}
-      className="min-h-screen bg-white text-black px-6 py-24 relative overflow-hidden"
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="min-h-screen bg-[#fafafa] text-black px-6 md:px-16 py-28 font-[Poppins] overflow-hidden relative"
     >
-      {/* Subtle Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,#f0f0f0_1px,transparent_1px),linear-gradient(#f0f0f0_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
-
-      <div className="relative max-w-5xl mx-auto space-y-16">
-        {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-center"
+      <div className="relative max-w-7xl mx-auto space-y-40">
+        {/* HERO */}
+        <motion.section
+          variants={item}
+          className="text-center max-w-5xl mx-auto mt-20"
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
-            Web Development That Drives Revenue
+          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight mb-8">
+            Precision <span className="text-gray-400">Web Development</span>
           </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
-            We build <strong>fast, secure, SEO-optimized</strong> websites that convert visitors into customers.
+          <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-light">
+            We build conversion-driven digital experiences that combine visual
+            clarity, performance, and growth-focused strategy designed to make
+            every pixel work harder.
           </p>
-        </motion.div>
+        </motion.section>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="text-lg text-gray-800 leading-relaxed max-w-4xl mx-auto font-medium"
+        {/* SECTION 1 - STRATEGIC FOUNDATION */}
+        <motion.section
+          variants={item}
+          className="flex flex-col md:flex-row items-center gap-16"
         >
-          From <strong>high-converting landing pages</strong> to <strong>complex SaaS platforms</strong>, every line of code is written with one goal: <em>your business success</em>.
-        </motion.p>
-
-        {/* Expertise + Why Trust */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="grid md:grid-cols-2 gap-12"
-        >
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <Zap className="w-7 h-7" /> What We Build
-            </h3>
-            <ul className="space-y-4 text-gray-800">
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <span className="font-medium"><strong>Responsive Websites</strong> – Pixel-perfect on every device</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <span className="font-medium"><strong>Custom CMS & Dashboards</strong> – You control, we empower</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <span className="font-medium"><strong>API Integrations</strong> – Stripe, CRM, AI, and more</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <span className="font-medium"><strong>Micro-interactions</strong> – Delight users, boost engagement</span>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <Rocket className="w-7 h-7" /> Why Clients Trust Us
-            </h3>
-            <p className="text-gray-800 leading-relaxed mb-4 font-medium">
-              We’re not freelancers. We’re <strong>your technical co-founder</strong>.
+          <div className="md:w-1/2 space-y-6">
+            <h2 className="text-4xl font-bold tracking-tight">
+              Strategy Before Code
+            </h2>
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Every great build begins with deep understanding. We dive into
+              your goals, audience, and competitive landscape to craft a
+              blueprint that aligns user experience with measurable business
+              outcomes.  
+              <br />  
+              <span className="font-semibold text-black">
+                Because coding without direction is just decoration.
+              </span>
             </p>
-            <ul className="space-y-3 text-gray-800">
-              <li className="flex items-center gap-2">
-                <Star className="w-5 h-5" />
-                <strong className="font-semibold">100% On-Time Delivery</strong>
+            <ul className="space-y-3 text-gray-700">
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> Market & UX Research
               </li>
-              <li className="flex items-center gap-2">
-                <Shield className="w-5 h-5" />
-                <strong className="font-semibold">90-Day Bug-Free Guarantee</strong>
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> Conversion Strategy Mapping
               </li>
-              <li className="flex items-center gap-2">
-                <Globe className="w-5 h-5" />
-                <strong className="font-semibold">SEO & Core Web Vitals Optimized</strong>
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> Technical Architecture Plan
               </li>
             </ul>
           </div>
-        </motion.div>
 
-        {/* Tech Stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Powered by Modern Tech</h3>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-6 text-center">
-            {['Next.js', 'React', 'TypeScript', 'Tailwind', 'Node.js', 'Vercel'].map((tech) => (
-              <div key={tech} className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-black rounded-xl mb-2 flex items-center justify-center">
-                  <Code className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-sm font-medium">{tech}</span>
-              </div>
-            ))}
+          <div className="md:w-1/2 bg-black text-white rounded-3xl p-10 shadow-2xl hover:scale-[1.02] transition-transform">
+            <Zap className="w-12 h-12 mb-6 text-white" />
+            <h3 className="text-2xl font-semibold mb-3">Outcome-Driven Design</h3>
+            <p className="text-gray-200 leading-relaxed">
+              We architect websites that don’t just look beautiful they move
+              users to act. Every animation, layout decision, and code snippet
+              is tied to performance data and business KPIs.
+            </p>
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Case Study */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
-        >
-          <h3 className="text-2xl font-bold mb-4">Real Result: SaaS Dashboard</h3>
-          <p className="text-gray-800 mb-4 font-medium">
-            <strong>Client:</strong> FinTech startup | <strong>Goal:</strong> Reduce churn
-          </p>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <p className="text-3xl font-bold">87%</p>
-              <p className="text-sm font-medium">User Retention</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">2.1s to 0.8s</p>
-              <p className="text-sm font-medium">Load Time</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">+340%</p>
-              <p className="text-sm font-medium">Feature Adoption</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Process */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3 }}
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Our Proven Process</h3>
-          <div className="grid md:grid-cols-4 gap-6">
+        {/* SECTION 2 - WHAT WE BUILD */}
+        <motion.section variants={item} className="text-center">
+          <h2 className="text-5xl font-bold mb-16">What We Build</h2>
+          <div className="grid md:grid-cols-3 gap-10">
             {[
-              { step: '1', title: 'Discovery', desc: 'We learn your goals, users, KPIs' },
-              { step: '2', title: 'Design', desc: 'Wireframes to High-fidelity to Approval' },
-              { step: '3', title: 'Develop', desc: 'Clean, modular, future-proof code' },
-              { step: '4', title: 'Launch & Grow', desc: 'Deploy, monitor, iterate' },
-            ].map((p) => (
-              <div key={p.step} className="text-center">
-                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3">
-                  {p.step}
-                </div>
-                <h4 className="font-semibold mb-1">{p.title}</h4>
-                <p className="text-sm text-gray-700 font-medium">{p.desc}</p>
-              </div>
+              {
+                icon: Rocket,
+                title: 'SaaS Platforms',
+                desc: 'From MVP to scale-ready systems, built with Next.js and a clean, maintainable architecture.',
+              },
+              {
+                icon: Globe,
+                title: 'Marketing Websites',
+                desc: 'Pixel-perfect, SEO-optimized, lightning-fast pages designed to elevate brand presence.',
+              },
+              {
+                icon: Code,
+                title: 'Custom Web Apps',
+                desc: 'Fully tailored dashboards, portals, and tools that bring your vision to life efficiently.',
+              },
+              {
+                icon: Shield,
+                title: 'Secure Platforms',
+                desc: 'We bake in enterprise-grade security and accessibility from the first commit.',
+              },
+              {
+                icon: Palette,
+                title: 'Creative Interfaces',
+                desc: 'Beautiful UI systems powered by Framer Motion and Tailwind for seamless interactivity.',
+              },
+              {
+                icon: Layers,
+                title: 'Headless Architecture',
+                desc: 'CMS freedom with Sanity, Strapi, or custom backends built for scalability and ownership.',
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={card.title}
+                whileHover={{
+                  y: -10,
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.1)',
+                }}
+                className={`p-8 rounded-3xl border-2 ${
+                  i % 2 === 0
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-black border-gray-200'
+                } transition-all hover:scale-[1.02]`}
+              >
+                <card.icon
+                  className={`w-10 h-10 mb-4 ${
+                    i % 2 === 0 ? 'text-white' : 'text-black'
+                  }`}
+                />
+                <h3 className="text-2xl font-semibold mb-3">{card.title}</h3>
+                <p
+                  className={`${
+                    i % 2 === 0 ? 'text-gray-300' : 'text-gray-700'
+                  } leading-relaxed`}
+                >
+                  {card.desc}
+                </p>
+              </motion.div>
             ))}
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Guarantee */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5 }}
-          className="bg-white border border-gray-300 rounded-2xl p-8 text-center shadow-sm"
+        {/* SECTION 3 - TECH STACK */}
+        <motion.section
+          variants={item}
+          className="flex flex-col md:flex-row items-center gap-16"
         >
-          <Shield className="w-12 h-12 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-3">Our Promise</h3>
-          <p className="text-gray-800 max-w-2xl mx-auto font-medium">
-            Your site will load in <strong>under 1 second</strong>, score <strong>95+ on Lighthouse</strong>, and be <strong>fully responsive</strong>.  
-            If not — <strong>we fix it for free</strong>.
+          <div className="md:w-1/2 bg-black text-white rounded-3xl p-10 shadow-2xl hover:scale-[1.02] transition-transform">
+            <h2 className="text-4xl font-bold mb-6">Modern Tech Stack</h2>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              We leverage battle-tested frameworks and cutting-edge tools to
+              ensure unmatched scalability, speed, and maintainability.
+            </p>
+            <ul className="mt-6 space-y-3 text-gray-300">
+              <li>Next.js 15 + React 19</li>
+              <li>TypeScript + Prisma ORM</li>
+              <li>Tailwind CSS + Framer Motion</li>
+              <li>Vercel Edge + Server Actions</li>
+            </ul>
+          </div>
+
+          <div className="md:w-1/2 space-y-8">
+            <h3 className="text-3xl font-semibold">Performance Obsessed</h3>
+            <p className="text-gray-700 text-lg leading-relaxed">
+              We don’t just code we engineer for outcomes. Each line of code
+              is written to minimize render time, reduce bundle size, and boost
+              SEO rankings. You’ll get a site that performs as powerfully as it
+              looks.
+            </p>
+          </div>
+        </motion.section>
+        
+        {/* FINAL SECTION */}
+        <motion.section
+          variants={item}
+          className="text-center border-t border-gray-200 pt-20"
+        >
+          <h2 className="text-4xl font-bold mb-6">
+            Let’s Build Something Timeless
+          </h2>
+          <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+            We merge code, creativity, and clarity to create digital experiences
+            that not only perform but endure. Every line written, every design
+            pixel intentional, impactful, and future-proof.
           </p>
-        </motion.div>
-
-        {/* FAQ */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.7 }}
-          className="space-y-6"
-        >
-          <h3 className="text-2xl font-bold text-center mb-8">Got Questions?</h3>
-          {[
-            { q: 'How long does a website take?', a: '4–8 weeks. MVP in 2 weeks.' },
-            { q: 'Do you provide hosting?', a: 'Yes — Vercel, AWS, or your choice. Fully managed.' },
-            { q: 'Will my site rank on Google?', a: 'Yes. We bake SEO into every build.' },
-          ].map((faq, i) => (
-            <details key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-6 cursor-pointer">
-              <summary className="font-semibold text-lg flex justify-between items-center list-none">
-                {faq.q}
-                <ChevronRight className="w-5 h-5 transition-transform duration-300" />
-              </summary>
-              <p className="mt-3 text-gray-800 font-medium">{faq.a}</p>
-            </details>
-          ))}
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.9 }}
-          className="text-center"
-        >
-          <h3 className="text-3xl font-bold mb-4">Ready to Launch Your Next Big Thing?</h3>
-          <p className="text-gray-800 mb-8 max-w-2xl mx-auto font-medium">
-            Let’s turn your vision into a high-performing, revenue-generating website.
-          </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg"
-          >
-            Start Your Project
-            <ArrowRight className="w-6 h-6" />
-          </a>
-        </motion.div>
+        </motion.section>
       </div>
-
-      {/* Smooth Chevron Rotate */}
-      <style jsx>{`
-        details[open] summary > svg {
-          transform: rotate(90deg);
-        }
-      `}</style>
     </motion.div>
   );
 }

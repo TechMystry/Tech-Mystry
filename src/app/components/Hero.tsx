@@ -198,7 +198,9 @@ const HeroSection = () => {
   const rotate = useTransform(scrollY, [0, 600], [0, 360]);
 
   return (
-    <section className="relative w-full h-screen bg-[#f9f9f9] text-gray-900 overflow-hidden">
+    <section 
+    id="hero"
+    className="relative w-full h-screen bg-[#f9f9f9] text-gray-900 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-100/50 to-gray-200/50" />
       <motion.div
         className="absolute inset-0 pointer-events-none"

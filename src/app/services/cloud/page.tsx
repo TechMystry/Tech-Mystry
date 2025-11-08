@@ -13,7 +13,26 @@ import {
   ChevronRight,
   Server,
   Activity,
+  Cpu,
 } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+// 📊 Mock data for graphs
+const costData = [
+  { month: 'Jan', cost: 12000 },
+  { month: 'Feb', cost: 9800 },
+  { month: 'Mar', cost: 7600 },
+  { month: 'Apr', cost: 5400 },
+  { month: 'May', cost: 3900 },
+  { month: 'Jun', cost: 3700 },
+];
+
+const uptimeData = [
+  { week: 'W1', uptime: 98.4 },
+  { week: 'W2', uptime: 99.1 },
+  { week: 'W3', uptime: 99.7 },
+  { week: 'W4', uptime: 99.98 },
+];
 
 export default function CloudSolutions() {
   return (
@@ -21,218 +40,195 @@ export default function CloudSolutions() {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}
-      className="min-h-screen bg-white text-black px-6 py-24 relative overflow-hidden"
+      className="min-h-screen bg-[#fefefe] text-black px-6 md:px-16 py-24 relative overflow-hidden font-[Inter]"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,#f0f0f0_1px,transparent_1px),linear-gradient(#f0f0f0_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,#f2f2f2_1px,transparent_1px),linear-gradient(#f2f2f2_1px,transparent_1px)] bg-[size:40px_40px] opacity-40" />
 
-      <div className="relative max-w-5xl mx-auto space-y-16">
-        <motion.div
+      <div className="relative max-w-7xl mx-auto space-y-24">
+        {/* HERO */}
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-center max-w-5xl mx-auto"
+        >
+          <h1 className="text-6xl md:text-8xl font-extrabold leading-tight mb-6">
+            Scalable <span className="text-gray-400">Cloud Solutions</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-light">
+            We architect, deploy, and optimize cloud infrastructures that
+            <strong> scale globally, run 24/7, and cut costs by up to 50%</strong>.
+          </p>
+        </motion.section>
+
+        {/* SECTION 1 - WHAT WE DO */}
+        <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-center"
+          className="grid md:grid-cols-2 gap-16 items-center"
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
-            Cloud That Never Sleeps
-          </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Secure, scalable, cost-optimized infrastructure that grows with your business.
-          </p>
-        </motion.div>
+          <div className="space-y-6">
+            <h2 className="text-4xl font-bold">Cloud Architecture. The Smart Way.</h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              From initial cloud migration to full-scale infrastructure automation, we engineer
+              robust, low-latency systems designed for scalability, security, and speed.
+            </p>
+            <ul className="space-y-3 text-gray-800">
+              <li className="flex items-center gap-3">
+                <Check className="w-5 h-5" /> AWS, Azure & GCP Experts
+              </li>
+              <li className="flex items-center gap-3">
+                <Check className="w-5 h-5" /> DevOps + CI/CD Pipeline Automation
+              </li>
+              <li className="flex items-center gap-3">
+                <Check className="w-5 h-5" /> 24/7 Monitoring & Auto Healing
+              </li>
+              <li className="flex items-center gap-3">
+                <Check className="w-5 h-5" /> Multi-region Redundancy
+              </li>
+            </ul>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          {/* Live Graph Mockup */}
+          <div className="bg-white border border-gray-200 rounded-3xl p-6 shadow-lg">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 text-center">
+              💸 Cost Optimization Over Time
+            </h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={costData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="cost" stroke="#000000" strokeWidth={3} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.section>
+
+        {/* SECTION 2 - PERFORMANCE & RELIABILITY */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-lg text-gray-800 max-w-4xl mx-auto"
+          className="grid md:grid-cols-2 gap-16 items-center"
         >
-          From <strong>startup MVPs</strong> to <strong>enterprise systems</strong>, we design <strong>AWS, Azure, GCP</strong> architectures that run <strong>24/7 and save 30–50% on costs</strong>.
-        </motion.p>
+          {/* Graph */}
+          <div className="bg-black text-white rounded-3xl p-6 shadow-lg">
+            <h3 className="text-lg font-semibold mb-4 text-center">
+              ⚙️  Uptime Performance (Last 4 Weeks)
+            </h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={uptimeData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis dataKey="week" stroke="#ccc" />
+                <YAxis stroke="#ccc" />
+                <Tooltip />
+                <Line type="monotone" dataKey="uptime" stroke="#ffffff" strokeWidth={3} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          <div className="space-y-6">
+            <h2 className="text-4xl font-bold">Performance That Never Sleeps</h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Our intelligent scaling systems and global CDNs ensure 99.99% uptime, sub-second
+              load times, and always-on performance — no matter where your users are.
+            </p>
+            <ul className="space-y-3 text-gray-800">
+              <li className="flex items-center gap-3">
+                <Shield className="w-5 h-5" /> End-to-End Encryption
+              </li>
+              <li className="flex items-center gap-3">
+                <Cpu className="w-5 h-5" /> High Availability Infrastructure
+              </li>
+              <li className="flex items-center gap-3">
+                <Zap className="w-5 h-5" /> Auto-Scaling + Load Balancing
+              </li>
+            </ul>
+          </div>
+        </motion.section>
+
+        {/* SECTION 3 - CASE STUDY */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="grid md:grid-cols-2 gap-12"
+          className="bg-gray-50 border border-gray-200 rounded-3xl p-10 shadow-md"
         >
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <Cloud className="w-7 h-7" /> What We Deliver
-            </h3>
-            <ul className="space-y-4 text-gray-800">
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>Cloud Architecture</strong> – Scalable, zero-downtime</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>Security & Compliance</strong> – SOC 2, GDPR, encryption</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>CI/CD + DevOps</strong> – Automate deploy, test, scale</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span><strong>Cost Optimization</strong> – Save 30–50% on bills</span>
-              </li>
-            </ul>
+          <h2 className="text-3xl font-bold mb-6 text-center">Case Study: FinTech Cloud Migration</h2>
+          <p className="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">
+            A FinTech client moved from on-premise to AWS — achieving <strong>62% cost reduction</strong>,  
+            <strong> 99.99% uptime</strong>, and <strong>global user access in under 200ms</strong>.
+          </p>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <p className="text-4xl font-bold text-black">62%</p>
+              <p className="text-gray-600">Cost Savings</p>
+            </div>
+            <div>
+              <p className="text-4xl font-bold text-black">99.99%</p>
+              <p className="text-gray-600">Uptime</p>
+            </div>
+            <div>
+              <p className="text-4xl font-bold text-black">200ms</p>
+              <p className="text-gray-600">Global Latency</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <Shield className="w-7 h-7" /> Why Trust Us
-            </h3>
-            <ul className="space-y-3 text-gray-800">
-              <li className="flex items-center gap-2">
-                <Star className="w-5 h-5" />
-                <strong>99.99% Uptime SLA</strong>
-              </li>
-              <li className="flex items-center gap-2">
-                <Lock className="w-5 h-5" />
-                <strong>End-to-End Encryption</strong>
-              </li>
-              <li className="flex items-center gap-2">
-                <Activity className="w-5 h-5" />
-                <strong>24/7 Monitoring + Alerting</strong>
-              </li>
-            </ul>
-          </div>
-        </motion.div>
+        </motion.section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        {/* SECTION 4 - CLOUD PROVIDERS */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
+          className="text-center"
         >
-          <h3 className="text-2xl font-bold mb-6 text-center">We Speak All Clouds</h3>
-          <div className="grid grid-cols-3 gap-8 text-center">
+          <h2 className="text-3xl font-bold mb-10">We Speak All Clouds</h2>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
             {[
               { name: 'AWS', icon: <Server className="w-8 h-8" /> },
               { name: 'Azure', icon: <Globe className="w-8 h-8" /> },
               { name: 'GCP', icon: <Zap className="w-8 h-8" /> },
+              { name: 'Cloudflare', icon: <Shield className="w-8 h-8" /> },
+              { name: 'DigitalOcean', icon: <Cloud className="w-8 h-8" /> },
+              { name: 'Vercel', icon: <Activity className="w-8 h-8" /> },
             ].map((cloud) => (
-              <div key={cloud.name} className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-black rounded-xl mb-3 flex items-center justify-center text-white">
+              <div
+                key={cloud.name}
+                className="flex flex-col items-center p-4 rounded-2xl bg-white border border-gray-200 hover:shadow-lg transition"
+              >
+                <div className="w-14 h-14 bg-black text-white flex items-center justify-center rounded-xl mb-3">
                   {cloud.icon}
                 </div>
-                <span className="text-lg font-semibold">{cloud.name}</span>
+                <span className="font-semibold">{cloud.name}</span>
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.section>
 
-        <motion.div
+        {/* SECTION 5 - CTA */}
+        <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
+          transition={{ delay: 1.2 }}
+          className="text-center border-t border-gray-200 pt-20"
         >
-          <h3 className="text-2xl font-bold mb-4">Case: E-Commerce Platform</h3>
-          <p className="text-gray-800 mb-4">
-            <strong>Challenge:</strong> 5s load time, $12k/month AWS bill
-          </p>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <p className="text-3xl font-bold">4.8s → 0.9s</p>
-              <p className="text-sm text-gray-600">Page Load</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">$12k → $3.8k</p>
-              <p className="text-sm text-gray-600">Monthly Cost</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">+290%</p>
-              <p className="text-sm text-gray-600">Conversion Rate</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3 }}
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Our Cloud Journey</h3>
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { step: '1', title: 'Assess', desc: 'Audit current setup & goals' },
-              { step: '2', title: 'Design', desc: 'Build scalable architecture' },
-              { step: '3', title: 'Migrate', desc: 'Zero-downtime transition' },
-              { step: '4', title: 'Optimize', desc: 'Monitor, scale, save' },
-            ].map((p) => (
-              <div key={p.step} className="text-center">
-                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3">
-                  {p.step}
-                </div>
-                <h4 className="font-semibold mb-1">{p.title}</h4>
-                <p className="text-sm text-gray-700">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5 }}
-          className="bg-white border border-gray-300 rounded-2xl p-8 text-center shadow-sm"
-        >
-          <Shield className="w-12 h-12 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-3">Our Cloud Promise</h3>
-          <p className="text-gray-800 max-w-2xl mx-auto">
-            <strong>99.99% uptime</strong>, <strong>encrypted by default</strong>, and <strong>30%+ cost savings</strong>.  
-            If we fail — <strong>your next month is free</strong>.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.7 }}
-          className="space-y-6"
-        >
-          <h3 className="text-2xl font-bold text-center mb-8">Common Questions</h3>
-          {[
-            { q: 'Can you migrate my app?', a: 'Yes — 50+ apps migrated with zero downtime.' },
-            { q: 'Do you manage backups?', a: 'Automated daily + disaster recovery included.' },
-            { q: 'What about compliance?', a: 'SOC 2, HIPAA, GDPR — we handle it all.' },
-          ].map((faq, i) => (
-            <details key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-6 cursor-pointer">
-              <summary className="font-semibold text-lg flex justify-between items-center list-none">
-                {faq.q}
-                <ChevronRight className="w-5 h-5 transition-transform duration-300" />
-              </summary>
-              <p className="mt-3 text-gray-800">{faq.a}</p>
-            </details>
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.9 }}
-          className="text-center"
-        >
-          <h3 className="text-3xl font-bold mb-4">Ready to Scale Without Limits?</h3>
-          <p className="text-gray-800 mb-8 max-w-2xl mx-auto">
-            Let’s move your business to a cloud that grows with you.
+          <h2 className="text-4xl font-bold mb-4">Ready to Scale Without Limits?</h2>
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
+            Let’s build a cloud ecosystem that grows, adapts, and saves — while you focus on innovation.
           </p>
           <a
-            href="/contact"
+            href="/ContactForm"
             className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg"
           >
             Launch Your Cloud
             <ArrowRight className="w-6 h-6" />
           </a>
-        </motion.div>
+        </motion.section>
       </div>
-
-      <style jsx>{`
-        details[open] summary > svg {
-          transform: rotate(90deg);
-        }
-      `}</style>
     </motion.div>
   );
 }

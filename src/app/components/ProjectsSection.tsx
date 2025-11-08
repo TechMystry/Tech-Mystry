@@ -1,234 +1,234 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { ExternalLink, ArrowRight, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
-import Link from "next/link"; // ✅ Import Link for internal routing
+import React, { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function ProjectsSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeTab, setActiveTab] = useState<"web" | "app" | "fullstack">("web");
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  // ✅ Project Data
+  const webProjects = useMemo(
+    () => [
+      {
+        title: "IAEPune.com",
+        description:
+          "Study Abroad platform helping students explore global education opportunities with ease and personalized guidance.",
+        url: "https://iaepune.com",
+        tech: ["Next.js", "Tailwind"],
+        stats: { users: "5K+", countries: "25+", uptime: "99%" },
+      },
+      {
+        title: "HTDeveloper.com",
+        description:
+          "Professional construction & infrastructure solutions built for seamless project management and client experience.",
+        url: "https://htdeveloper.com",
+        tech: ["React", "Tailwind"],
+        stats: { projects: "200+", clients: "50+", uptime: "99%" },
+      },
+      {
+        title: "RelaxWorld.in",
+        description:
+          "Tours and travel platform providing personalized and premium travel experiences with real-time booking.",
+        url: "https://relax-world.vercel.app/",
+        tech: ["Next.js", "Firebase"],
+        stats: { bookings: "10K+", destinations: "100+", uptime: "99%" },
+      },
+    ],
+    []
+  );
 
-  const projects = [
-    {
-      title: "IAEPune.com",
-      description:
-        "Study Abroad platform helping students explore global education opportunities with ease and personalized guidance.",
-      url: "https://iaepune.com",
-      tech: ["Next.js", "Tailwind"],
-      stats: { users: "5K+", countries: "25+", uptime: "99%" },
-    },
-    {
-      title: "HTDeveloper.com",
-      description:
-        "Professional construction & infrastructure solutions built for seamless project management and client experience.",
-      url: "https://htdeveloper.com",
-      tech: ["React", "Tailwind"],
-      stats: { projects: "200+", clients: "50+", uptime: "99%" },
-    },
-    {
-      title: "RelaxWorld.in",
-      description:
-        "Tours and travel platform providing personalized and premium travel experiences with real-time booking.",
-      url: "https://relax-world.vercel.app/",
-      tech: ["Next.js", "Firebase"],
-      stats: { bookings: "10K+", destinations: "100+", uptime: "99%" },
-    },
-  ];
+  const appProjects = useMemo(
+    () => [
+      { title: "Mobile Apps", description: "Coming Soon...", tech: [], stats: {} },
+      { title: "iOS & Android", description: "Coming Soon...", tech: [], stats: {} },
+      { title: "Native & Hybrid", description: "Coming Soon...", tech: [], stats: {} },
+    ],
+    []
+  );
+
+  const fullStackProjects = useMemo(
+    () => [
+      { title: "Full Stack Solutions", description: "Coming Soon...", tech: [], stats: {} },
+      { title: "Backend + Frontend", description: "Coming Soon...", tech: [], stats: {} },
+      { title: "Scalable Systems", description: "Coming Soon...", tech: [], stats: {} },
+    ],
+    []
+  );
+
+  const projectsMap = { web: webProjects, app: appProjects, fullstack: fullStackProjects };
+
+  // ✅ Card animation
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  // ✅ Reusable Card
+  const ProjectCard = React.memo(({ project }: { project: any }) => (
+    <motion.div
+      variants={cardVariants}
+      whileHover={{ y: -6, scale: 1.02 }}
+      transition={{ duration: 0.4 }}
+      className="group"
+    >
+      <div className="relative bg-white/80 backdrop-blur-sm border border-gray-300 rounded-3xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-gray-400 p-5 flex flex-col justify-between h-full">
+        {/* Thumbnail / Preview */}
+        {project.url ? (
+          <div className="relative h-48 md:h-56 overflow-hidden rounded-2xl border border-gray-200 mb-4">
+            <iframe
+              src={project.url}
+              className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+              loading="lazy"
+              title={project.title}
+              sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+              scrolling="no"
+              style={{
+                transform: "translateZ(0)",
+                backfaceVisibility: "hidden",
+              }}
+            />
+          </div>
+        ) : (
+          <div className="h-48 md:h-56 flex items-center justify-center bg-gray-100 rounded-2xl mb-4">
+            <p className="text-gray-600 font-semibold">Coming Soon</p>
+          </div>
+        )}
+
+        {/* Content */}
+        <div className="flex flex-col gap-3">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900 group-hover:text-gray-800 transition">
+              {project.title}
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed mt-1">
+              {project.description}
+            </p>
+          </div>
+
+          {/* Tech Stack */}
+          {project.tech?.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-1">
+              {project.tech.map((tech: string, i: number) => (
+                <span
+                  key={i}
+                  className="px-3 py-1 bg-gray-900 text-white text-xs font-medium rounded-full"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Stats */}
+          {Object.keys(project.stats).length > 0 && (
+            <div className="grid grid-cols-3 gap-2 border-t border-gray-300 pt-3 text-center">
+              {Object.entries(project.stats).map(([key, value]: [string, any], i: number) => (
+                <div key={i}>
+                  <div className="text-sm font-bold text-gray-900">{value}</div>
+                  <div className="text-[10px] text-gray-600 uppercase tracking-wide">{key}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* CTA */}
+          {project.url ? (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-gray-900 font-semibold text-sm pt-3 group-hover:gap-3 transition-all"
+            >
+              Explore Project <ArrowRight className="w-4 h-4" />
+            </a>
+          ) : (
+            <p className="text-xs text-gray-500 italic pt-2">Stay tuned for updates!</p>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  ));
 
   return (
-    <section className="relative bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 overflow-hidden py-16 md:py-20 lg:py-24">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-gray-300/20 rounded-full blur-2xl"
-          style={{
-            transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`,
-            transition: "transform 0.4s ease-out",
-          }}
-        />
-        <div
-          className="absolute right-0 bottom-0 w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-gray-400/15 rounded-full blur-2xl"
-          style={{
-            transform: `translate(${-mousePosition.x * 0.008}px, ${-mousePosition.y * 0.008}px)`,
-            transition: "transform 0.4s ease-out",
-          }}
-        />
-
-        {/* Floating Particles */}
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1.5 h-1.5 bg-gray-500/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `float ${3 + Math.random() * 2}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
-          />
-        ))}
-      </div>
-
+    <section id="projects" className="relative bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 text-gray-900 overflow-hidden py-20">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
+        {/* Header */}
         <motion.div
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-12 md:mb-16"
+          transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-gray-200/50 border border-gray-300/50 rounded-full backdrop-blur-sm">
-            <Sparkles className="w-4 h-4 text-gray-700" />
-            <span className="text-gray-700 text-xs font-medium">
-              Our Portfolio
-            </span>
-          </div>
-
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6">
-            <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
-                Featured{" "}
-                <span className="bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                  Projects
-                </span>
-              </h2>
-              <p className="text-gray-600 text-sm sm:text-base max-w-2xl leading-relaxed">
-                Cutting-edge solutions blending innovative technology, stunning
-                design, and seamless functionality.
-              </p>
-            </div>
-
-            {/* ✅ Updated: Link to /ContactForm */}
-            <Link href="/ContactForm">
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 text-gray-900 font-medium bg-gray-200/60 px-5 py-2.5 rounded-lg border border-gray-300/50 text-sm transition-all duration-300 hover:bg-gray-300/50"
-              >
-                Start Your Project
-                <ArrowRight className="w-4 h-4" />
-              </motion.a>
-            </Link>
-          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3">
+            Our Projects
+          </h2>
+          <p className="text-sm sm:text-base max-w-2xl mx-auto text-gray-600 leading-relaxed">
+            Crafted with precision, built for impact.
+          </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {projects.map((project, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 + idx * 0.1, duration: 0.6 }}
-              className="group"
+        {/* Tabs */}
+        <div className="flex justify-center mb-12 border border-gray-300 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm">
+          {[
+            { key: "web", label: "Websites" },
+            { key: "app", label: "Apps" },
+            { key: "fullstack", label: "Full Stack" },
+          ].map((tab, index) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as any)}
+              className={`px-8 py-3 text-sm sm:text-base font-semibold transition-all duration-300 ${
+                activeTab === tab.key
+                  ? "bg-gray-900 text-white"
+                  : "bg-transparent text-gray-800 hover:bg-gray-200"
+              } ${index !== 0 ? "border-l border-gray-300" : ""}`}
             >
-              <div className="relative bg-white/90 backdrop-blur-sm border border-gray-200/50 rounded-2xl overflow-hidden transition-all duration-300">
-                {/* Project Preview */}
-                <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gray-100">
-                  <iframe
-                    src={project.url}
-                    className="absolute inset-0 w-full h-full object-cover pointer-events-none no-scrollbar"
-                    loading="lazy"
-                    title={project.title}
-                    sandbox="allow-same-origin allow-scripts allow-popups"
-                  />
-                </div>
-
-                {/* Content Section */}
-                <div className="p-5 space-y-3">
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 transition-all duration-300">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-2">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-0.5 bg-gray-100/80 text-gray-700 text-[10px] font-medium rounded-full border border-gray-200/50"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Stats */}
-                  <div className="pt-3 border-t border-gray-200/50 grid grid-cols-3 gap-2">
-                    {Object.entries(project.stats).map(([key, value], i) => (
-                      <div key={i} className="text-center">
-                        <div className="text-xs sm:text-sm font-semibold text-gray-900">
-                          {value}
-                        </div>
-                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">
-                          {key}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* CTA Link */}
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-gray-700 font-medium text-xs pt-2"
-                  >
-                    Explore Project
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+              {tab.label}
+            </button>
           ))}
         </div>
 
-        {/* More Projects Coming */}
+        {/* Animated Cards */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="mt-12 md:mt-16 text-center"
+          key={activeTab}
+          initial="hidden"
+          animate="visible"
+          variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
-          <p className="text-gray-500 text-sm sm:text-base italic">
-            We’re currently working on more exciting projects stay tuned!
-          </p>
+          <AnimatePresence mode="wait">
+            {projectsMap[activeTab].map((project, idx) => (
+              <ProjectCard key={idx} project={project} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Link
+            href="/ContactForm"
+            className="inline-flex items-center gap-3 bg-gray-900 text-white font-semibold px-8 py-4 rounded-2xl text-lg border border-gray-800 hover:bg-gray-800 hover:shadow-lg transition-all duration-300"
+          >
+            Start Your Project <ArrowRight className="w-6 h-6" />
+          </Link>
         </motion.div>
       </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0);
-            opacity: 0.2;
-          }
-          50% {
-            transform: translateY(-10px);
-            opacity: 0.3;
-          }
+      <style jsx global>{`
+        iframe {
+          -ms-overflow-style: none !important;
+          scrollbar-width: none !important;
+          overflow: hidden !important;
         }
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
+        iframe::-webkit-scrollbar {
+          display: none !important;
         }
       `}</style>
     </section>

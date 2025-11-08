@@ -2,244 +2,237 @@
 
 import { motion } from 'framer-motion';
 import {
-  Search,
+  LineChart,
   TrendingUp,
-  Zap,
+  Search,
   Globe,
-  ArrowRight,
-  Check,
-  Star,
-  ChevronRight,
-  BarChart,
+  Target,
+  BarChart3,
+  PieChart,
+  Layers,
   Shield,
+  ChevronRight,
 } from 'lucide-react';
+
+const container: any = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+};
+
+const item: any = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+};
 
 export default function SEOOptimization() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: 'easeOut' }}
-      className="relative min-h-screen bg-white text-black px-6 py-24 overflow-hidden"
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="min-h-screen bg-[#f9fafb] text-black px-6 md:px-16 py-20 font-[Inter] overflow-hidden relative"
     >
-      {/* Subtle Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,#f0f0f0_1px,transparent_1px),linear-gradient(#f0f0f0_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
+      {/* Soft Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white to-[#f3f4f6] pointer-events-none" />
 
-      <div className="relative max-w-5xl mx-auto space-y-16">
-        {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-center"
+      <div className="relative max-w-7xl mx-auto space-y-36">
+        {/* HERO SECTION */}
+        <motion.section
+          variants={item}
+          className="text-center max-w-5xl mx-auto min-h-[75vh] flex flex-col justify-center"
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
-            SEO That Ranks #1
+          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight mb-8">
+            <span className="text-gray-800">SEO</span>{' '}
+            <span className="text-gray-400">Optimization</span>
           </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
-            We don’t chase algorithms. We build <strong>sustainable, data-driven SEO</strong> that drives traffic, leads, and revenue.
+          <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-light">
+            Drive visibility, traffic, and conversions with a data-driven SEO
+            strategy designed to grow your brand organically and sustainably.
           </p>
-        </motion.div>
+        </motion.section>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="text-lg text-gray-800 leading-relaxed max-w-4xl mx-auto font-medium"
+        {/* STRATEGY SECTION */}
+        <motion.section
+          variants={item}
+          className="flex flex-col md:flex-row items-center gap-16"
         >
-          From <strong>technical audits</strong> to <strong>content strategy</strong>, we optimize every layer of your site to dominate Google — <em>today and tomorrow</em>.
-        </motion.p>
-
-        {/* Services + Difference */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="grid md:grid-cols-2 gap-12"
-        >
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <Search className="w-7 h-7" />
-              Our SEO Services
-            </h3>
-            <ul className="space-y-4 text-gray-800">
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span className="font-medium"><strong>On-Page SEO</strong> – Titles, meta, structure</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span className="font-medium"><strong>Technical SEO</strong> – Speed, schema, crawl</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span className="font-medium"><strong>Content Strategy</strong> – Keywords, blogs, guides</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="w-5 h-5 mt-0.5" />
-                <span className="font-medium"><strong>Backlink Growth</strong> – Authority, trust, rank</span>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
-              <TrendingUp className="w-7 h-7" />
-              Why We’re Different
-            </h3>
-            <p className="text-gray-800 mb-4 font-medium">
-              We focus on <strong>long-term dominance</strong>, not quick wins.
+          <div className="md:w-1/2 space-y-6">
+            <h2 className="text-4xl font-bold tracking-tight">
+              Strategy Rooted in Data
+            </h2>
+            <p className="text-gray-700 text-lg leading-relaxed">
+              SEO is not guesswork; it’s a science of data and intent. We build
+              personalized optimization strategies based on real metrics, search
+              behavior, and content performance to place your brand where it
+              deserves to be seen.
             </p>
-            <ul className="space-y-3 text-gray-800">
-              <li className="flex items-center gap-2">
-                <Star className="w-5 h-5" />
-                <strong className="font-semibold">White-Hat Only</strong> – No risks
+            <ul className="space-y-3 text-gray-700">
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> Keyword and Competitor Research
               </li>
-              <li className="flex items-center gap-2">
-                <BarChart className="w-5 h-5" />
-                <strong className="font-semibold">Monthly Reports</strong> – Transparent ROI
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> Technical SEO Audits
               </li>
-              <li className="flex items-center gap-2">
-                <Shield className="w-5 h-5" />
-                <strong className="font-semibold">Google-Proof</strong> – Future-ready
+              <li className="flex items-center gap-3">
+                <ChevronRight className="w-4 h-4" /> Content Optimization Strategy
               </li>
             </ul>
           </div>
-        </motion.div>
 
-        {/* Tools */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Powered By</h3>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-6 text-center">
-            {['Google', 'Ahrefs', 'SEMRush', 'Screaming Frog', 'GTmetrix', 'PageSpeed'].map((tool) => (
-              <div key={tool} className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-black rounded-xl mb-2 flex items-center justify-center">
-                  <Search className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-sm font-medium">{tool}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+          {/* MOCKUP ANALYTICS CARD */}
+          <div className="md:w-1/2 bg-black text-white rounded-3xl p-10 shadow-2xl hover:scale-[1.02] transition-transform">
+            <BarChart3 className="w-12 h-12 mb-6 text-white" />
+            <h3 className="text-2xl font-semibold mb-3">Real-Time SEO Analytics</h3>
+            <p className="text-gray-300 leading-relaxed">
+              Track keyword trends, backlinks, and organic growth using our live
+              analytics dashboard with easy-to-read performance visuals.
+            </p>
 
-        {/* Case Study */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-          className="bg-gray-50 border border-gray-200 rounded-2xl p-8"
-        >
-          <h3 className="text-2xl font-bold mb-4">E-Commerce Store</h3>
-          <p className="text-gray-800 mb-4 font-medium"><strong>Goal:</strong> Increase organic traffic</p>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <p className="text-3xl font-bold">+380%</p>
-              <p className="text-sm font-medium">Organic Traffic</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">#1 to #1</p>
-              <p className="text-sm font-medium">Top Keyword</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">+240%</p>
-              <p className="text-sm font-medium">Revenue</p>
+            {/* Realistic Vertical Graph */}
+            <div className="mt-8 flex items-end justify-between h-48 bg-gray-800 rounded-2xl p-4 overflow-hidden">
+              {[50, 80, 40, 70, 90, 60].map((height, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ height: [`${height - 10}%`, `${height + 10}%`] }}
+                  transition={{
+                    duration: 2 + i * 0.3,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                  }}
+                  className="w-8 rounded-t-lg bg-gradient-to-t from-green-400 to-emerald-500"
+                />
+              ))}
             </div>
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Process */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3 }}
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Our SEO Process</h3>
-          <div className="grid md:grid-cols-4 gap-6">
+        {/* WHAT WE OPTIMIZE */}
+        <motion.section variants={item} className="text-center">
+          <h2 className="text-5xl font-bold mb-16">What We Optimize</h2>
+          <div className="grid md:grid-cols-3 gap-10">
             {[
-              { step: '1', title: 'Audit', desc: 'Find gaps & opportunities' },
-              { step: '2', title: 'Optimize', desc: 'Fix tech, content, speed' },
-              { step: '3', title: 'Build', desc: 'Links, authority, trust' },
-              { step: '4', title: 'Grow', desc: 'Track, refine, dominate' },
-            ].map((p) => (
-              <div key={p.step} className="text-center">
-                <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3">
-                  {p.step}
-                </div>
-                <h4 className="font-semibold mb-1">{p.title}</h4>
-                <p className="text-sm text-gray-700 font-medium">{p.desc}</p>
-              </div>
+              {
+                icon: Search,
+                title: 'On-Page SEO',
+                desc: 'Optimized titles, meta descriptions, and content structure for better discoverability.',
+              },
+              {
+                icon: Globe,
+                title: 'Off-Page SEO',
+                desc: 'High-quality backlinks and PR campaigns that build long-term authority.',
+              },
+              {
+                icon: Target,
+                title: 'Local SEO',
+                desc: 'Enhanced regional presence using Google My Business and location-based keywords.',
+              },
+              {
+                icon: Layers,
+                title: 'Technical SEO',
+                desc: 'Fast load times, mobile-first design, and perfect site architecture.',
+              },
+              {
+                icon: TrendingUp,
+                title: 'Analytics & Insights',
+                desc: 'Interactive dashboards that visualize organic performance and ROI.',
+              },
+              {
+                icon: Shield,
+                title: 'SEO Security',
+                desc: 'Maintaining secure, compliant, and crawl-friendly environments.',
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={card.title}
+                whileHover={{
+                  y: -10,
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.1)',
+                }}
+                className={`p-8 rounded-3xl border-2 ${
+                  i % 2 === 0
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-black border-gray-200'
+                } transition-all hover:scale-[1.02]`}
+              >
+                <card.icon
+                  className={`w-10 h-10 mb-4 ${
+                    i % 2 === 0 ? 'text-white' : 'text-black'
+                  }`}
+                />
+                <h3 className="text-2xl font-semibold mb-3">{card.title}</h3>
+                <p
+                  className={`${
+                    i % 2 === 0 ? 'text-gray-300' : 'text-gray-700'
+                  } leading-relaxed`}
+                >
+                  {card.desc}
+                </p>
+              </motion.div>
             ))}
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Guarantee */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5 }}
-          className="bg-white border border-gray-300 rounded-2xl p-8 text-center shadow-sm"
+        {/* LIVE GRAPH VISUALIZATION */}
+        <motion.section
+          variants={item}
+          className="flex flex-col md:flex-row items-center gap-16"
         >
-          <Shield className="w-12 h-12 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-3">Our SEO Promise</h3>
-          <p className="text-gray-800 max-w-2xl mx-auto font-medium">
-            <strong>Top 3 ranking</strong> or <strong>your money back</strong>.  
-            We stand by results — not effort.
+          <div className="md:w-1/2 bg-black text-white rounded-3xl p-10 shadow-2xl hover:scale-[1.02] transition-transform">
+            <h2 className="text-4xl font-bold mb-6">Organic Growth Over Time</h2>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Experience consistent visibility improvement through our ongoing
+              keyword tracking and performance refinement system.
+            </p>
+
+            {/* Realistic Animated Bar Chart */}
+            <div className="flex items-end justify-between h-56 bg-gray-800 mt-8 rounded-2xl p-4 overflow-hidden">
+              {[30, 50, 70, 90, 60, 80].map((h, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ height: [`${h - 15}%`, `${h + 10}%`] }}
+                  transition={{
+                    duration: 2.5 + i * 0.2,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                  }}
+                  className={`w-10 rounded-t-lg ${
+                    i % 2 === 0
+                      ? 'bg-gradient-to-t from-blue-500 to-cyan-400'
+                      : 'bg-gradient-to-t from-green-400 to-lime-300'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="md:w-1/2 space-y-8">
+            <h3 className="text-3xl font-semibold">Climb Rankings and Stay There</h3>
+            <p className="text-gray-700 text-lg leading-relaxed">
+              We focus on long-term, sustainable SEO performance. With continuous
+              monitoring and adaptive algorithms, your site stays ahead of
+              competition — even as search engines evolve.
+            </p>
+          </div>
+        </motion.section>
+
+        {/* FINAL CTA */}
+        <motion.section
+          variants={item}
+          className="text-center border-t border-gray-200 pt-20"
+        >
+          <h2 className="text-4xl font-bold mb-6">
+            Let’s Elevate Your Search Presence
+          </h2>
+          <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+            From technical audits to creative content strategy, we blend art,
+            data, and innovation to position your brand at the top of search
+            results and keep it there.
           </p>
-        </motion.div>
-
-        {/* FAQ */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.7 }}
-          className="space-y-6"
-        >
-          <h3 className="text-2xl font-bold text-center mb-8">FAQ</h3>
-          {[
-            { q: 'How long until I rank?', a: '3–6 months for competitive keywords. We show progress monthly.' },
-            { q: 'Do you write content?', a: 'Yes — SEO-optimized blogs, guides, and product descriptions.' },
-            { q: 'What if I get penalized?', a: 'We only use white-hat tactics. Zero risk.' },
-          ].map((faq, i) => (
-            <details key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-6 cursor-pointer">
-              <summary className="font-semibold text-lg flex justify-between items-center list-none">
-                {faq.q}
-                <ChevronRight className="w-5 h-5 transition-transform duration-300" />
-              </summary>
-              <p className="mt-3 text-gray-800 font-medium">{faq.a}</p>
-            </details>
-          ))}
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.9 }}
-          className="text-center"
-        >
-          <h3 className="text-3xl font-bold mb-4">Ready to Rank #1?</h3>
-          <p className="text-gray-800 mb-8 max-w-2xl mx-auto font-medium">
-            Let’s turn your website into a traffic magnet.
-          </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg"
-          >
-            Start SEO Audit
-            <ArrowRight className="w-6 h-6" />
-          </a>
-        </motion.div>
+        </motion.section>
       </div>
-
-      <style jsx>{`
-        details[open] summary > svg {
-          transform: rotate(90deg);
-        }
-      `}</style>
     </motion.div>
   );
 }
