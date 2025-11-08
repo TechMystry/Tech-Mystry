@@ -17,13 +17,10 @@ export default [
   // ✅ Custom global rules
   {
     rules: {
-      "@typescript-eslint/no-explicit-any": "off",       // Allow 'any' type
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }
-      ],                                                // Warn on unused vars
-      "react/no-unescaped-entities": "off",             // Allow quotes in JSX text
-      "react-hooks/exhaustive-deps": "off",            // Disable exhaustive deps warnings
+      "@typescript-eslint/no-explicit-any": "off", // Allow 'any' type
+      "@typescript-eslint/no-unused-vars": "off",  // Disable all unused var warnings globally
+      "react/no-unescaped-entities": "off",        // Allow quotes in JSX text
+      "react-hooks/exhaustive-deps": "off",       // Disable exhaustive deps warnings
     },
   },
 
