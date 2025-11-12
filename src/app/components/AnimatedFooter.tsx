@@ -44,22 +44,21 @@ export default function AnimatedFooter() {
     { label: "Contact", href: "/ContactForm" },
   ];
 
+  // FIXED: Hardcoded URLs to prevent SSR/Client mismatch
   const socialLinks = [
     { icon: Linkedin, href: "https://www.linkedin.com/company/techmystrymedia/" },
     { icon: Instagram, href: "https://www.instagram.com/techmystry?igsh=MWFhbWV6aDNwYXZvdQ==" },
-    { icon: Youtube, href: "https://youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
+    { icon: Youtube, href: "//youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
   ];
 
   const currentYear = new Date().getFullYear();
 
   const handleQuickLink = (href: string) => {
     if (href.startsWith("#")) {
-      // If already on home page, smooth scroll
       if (window.location.pathname === "/") {
         const el = document.querySelector(href);
         if (el) el.scrollIntoView({ behavior: "smooth" });
       } else {
-        // If on another page, redirect to home first
         router.push("/" + href);
       }
     } else {
@@ -76,36 +75,36 @@ export default function AnimatedFooter() {
   return (
     <>
       {/* Floating WhatsApp Icon */}
-<a
-  href="https://wa.me/918805526198"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="
-    fixed z-50 
-    right-0 top-1/2 -translate-y-1/2 
-    flex items-center justify-center 
-    rounded-full shadow-2xl 
-    transition-all duration-500 ease-out
-    hover:scale-110 
-    focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-    group
-  "
-  style={{
-    width: '48px',
-    height: '48px',
-    backgroundColor: '#25D366',
-    transform: 'translateX(50%)', // Half hidden initially
-  }}
-  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(0%)'}
-  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(50%)'}
-  aria-label="Chat on WhatsApp"
->
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-    alt="WhatsApp"
-    className="w-6 h-6 drop-shadow-md group-hover:animate-pulse"
-  />
-</a>
+      <a
+        href="https://wa.me/918805526198"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="
+          fixed z-50 
+          right-0 top-1/2 -translate-y-1/2 
+          flex items-center justify-center 
+          rounded-full shadow-2xl 
+          transition-all duration-500 ease-out
+          hover:scale-110 
+          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+          group
+        "
+        style={{
+          width: '48px',
+          height: '48px',
+          backgroundColor: '#25D366',
+          transform: 'translateX(50%)',
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(0%)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(50%)'}
+        aria-label="Chat on WhatsApp"
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+          alt="WhatsApp"
+          className="w-6 h-6 drop-shadow-md group-hover:animate-pulse"
+        />
+      </a>
 
       <footer className="relative overflow-hidden bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300 text-gray-800 py-10 sm:py-12">
         {/* Background Accent Glow */}
@@ -248,11 +247,11 @@ export default function AnimatedFooter() {
 
         {/* Footer Bottom */}
         <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 px-4 sm:px-6">
-  <p>© {currentYear} TechMystry. All rights reserved.</p>
-  <p className="mt-2 sm:mt-0">
-    Designed with ❤️ by <span className="font-semibold">TechMystry</span>
-  </p>
-</div>
+          <p>© {currentYear} TechMystry. All rights reserved.</p>
+          <p className="mt-2 sm:mt-0">
+            Designed with [heart] by <span className="font-semibold">TechMystry</span>
+          </p>
+        </div>
 
         {/* Animations */}
         <style jsx>{`
