@@ -2,12 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Phone,
   Mail,
   MapPin,
   ArrowRight,
+  Twitter,
+  Github,
   Linkedin,
   Instagram,
   Youtube,
@@ -34,16 +37,17 @@ export default function AnimatedFooter() {
   ];
 
   const quickLinks = [
-    { label: "Home", href: "#hero" },
+    { label: "Home", href: "#home" },
     { label: "Services", href: "#expertise" },
+    { label: "Process", href: "#process" },
     { label: "Projects", href: "#projects" },
     { label: "Contact", href: "/ContactForm" },
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: "https://linkedin.com/company/techmystry" },
-    { icon: Instagram, href: "https://instagram.com/techmystry" },
-    { icon: Youtube, href: "https://youtube.com/techmystry" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/techmystrymedia/" },
+    { icon: Instagram, href: "https://www.instagram.com/techmystry?igsh=MWFhbWV6aDNwYXZvdQ==" },
+    { icon: Youtube, href: "https://youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
   ];
 
   const currentYear = new Date().getFullYear();
@@ -71,25 +75,37 @@ export default function AnimatedFooter() {
 
   return (
     <>
-{/* Floating WhatsApp Icon - Center Right (Touching Edge) with Glow Effect */}
+      {/* Floating WhatsApp Icon */}
 <a
   href="https://wa.me/918805526198"
   target="_blank"
   rel="noopener noreferrer"
-  className="fixed z-50 top-1/2 -translate-y-1/2 right-0 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(37,211,102,0.8)] hover:scale-110 transition-transform duration-300 border-2 border-white/80 overflow-visible"
+  className="
+    fixed z-50 
+    right-0 top-1/2 -translate-y-1/2 
+    flex items-center justify-center 
+    rounded-full shadow-2xl 
+    transition-all duration-500 ease-out
+    hover:scale-110 
+    focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+    group
+  "
+  style={{
+    width: '48px',
+    height: '48px',
+    backgroundColor: '#25D366',
+    transform: 'translateX(50%)', // Half hidden initially
+  }}
+  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(0%)'}
+  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(50%)'}
   aria-label="Chat on WhatsApp"
 >
-  {/* Sparkle / Crystal Glow */}
-  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#25D366]/60 via-transparent to-[#25D366]/60 blur-xl opacity-80 animate-pulse" />
-
-  {/* WhatsApp Icon */}
   <img
     src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
     alt="WhatsApp"
-    className="w-8 h-8 relative z-10"
+    className="w-6 h-6 drop-shadow-md group-hover:animate-pulse"
   />
 </a>
-
 
       <footer className="relative overflow-hidden bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300 text-gray-800 py-10 sm:py-12">
         {/* Background Accent Glow */}
@@ -138,7 +154,7 @@ export default function AnimatedFooter() {
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-gray-500" />
                 <span>+91 8805526198</span>
-                <span>/ +91 7038230674</span>
+                <span>+91 7038230674</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-gray-500" />
@@ -231,12 +247,12 @@ export default function AnimatedFooter() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 mx-5 sm:mx-10">
-          <p>© {currentYear} TechMystry. All rights reserved.</p>
-          <p className="mt-2 sm:mt-0">
-            Designed with ❤️ by <span className="font-semibold">TechMystry</span>
-          </p>
-        </div>
+        <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 px-4 sm:px-6">
+  <p>© {currentYear} TechMystry. All rights reserved.</p>
+  <p className="mt-2 sm:mt-0">
+    Designed with ❤️ by <span className="font-semibold">TechMystry</span>
+  </p>
+</div>
 
         {/* Animations */}
         <style jsx>{`

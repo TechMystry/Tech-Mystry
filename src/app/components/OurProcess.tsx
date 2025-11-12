@@ -7,60 +7,56 @@ import { ArrowRight } from "lucide-react";
 const steps = [
   {
     id: "S01",
-    title: "Design a New SaaS",
+    title: "Contact & Discover",
     subtitle:
-      "Start your digital journey with a unique and scalable design foundation tailored to your business goals.",
+      "We connect, understand your goals, and align on vision and expectations.",
     desc: [
-      "Collaborate directly with our expert SaaS designers who understand both aesthetics and usability.",
-      "Translate your ideas into interactive wireframes and high-converting user flows.",
-      "Get pixel-perfect designs that align with your brand identity and product objectives.",
-      "Launch your MVP faster with our efficient design sprint methodology.",
-      "Avoid recruitment delays and instantly onboard a skilled design partner through our flexible subscription model.",
+      "Schedule a quick call to gather requirements, ideas, and expectations.",
+      "Clarify target audience, success metrics, timeline, and constraints.",
+      "Define scope: website, app, cloud, SEO — or a combination.",
+      "Establish communication rhythm and project workflows from day one.",
     ],
     progress: 25,
-    image: "/design.svg",
-  },
-  {
-    id: "S02",
-    title: "Enhance Your Product",
-    subtitle:
-      "Elevate your existing product experience with modern interfaces, refined workflows, and intuitive usability.",
-    desc: [
-      "Perform in-depth UI/UX audits to identify bottlenecks and friction points.",
-      "Redesign critical user journeys to increase engagement and reduce drop-offs.",
-      "Introduce design consistency across your entire ecosystem with reusable UI components.",
-      "Ensure your design system is flexible, scalable, and aligned with your long-term roadmap.",
-      "Enhance accessibility and responsiveness for a flawless experience on every device.",
-    ],
-    progress: 50,
     image: "/Product.svg",
   },
   {
-    id: "S03",
-    title: "Deploy to Scale",
+    id: "S02",
+    title: "Research & Proposal",
     subtitle:
-      "Seamlessly move from design to development with structured systems and design ops built for scalability.",
+      "Deep research and a tailored plan for UI/UX, growth, and delivery.",
     desc: [
-      "Prepare detailed design documentation and developer-friendly handoff files.",
-      "Implement a scalable component library for faster future iterations.",
-      "Maintain consistent brand visuals across platforms (web, mobile, dashboard, etc.).",
-      "Collaborate directly with developers to ensure design accuracy during integration.",
-      "Empower your internal team with clearly defined design guidelines and standards.",
+      "Audit competition and market; identify growth opportunities.",
+      "Propose UI/UX direction and a roadmap for features and scale.",
+      "Outline tech stack, architecture, timelines, and investment.",
+      "Share how the business can grow and what more can be done.",
+    ],
+    progress: 50,
+    image: "/design.svg",
+  },
+  {
+    id: "S03",
+    title: "Build & Optimize",
+    subtitle:
+      "We develop a fast, secure, and scalable solution across web, app, and cloud.",
+    desc: [
+      "Implement best-practice frontends and robust backends with modern APIs.",
+      "Optimize performance, accessibility, and Core Web Vitals.",
+      "Automate CI/CD with testing and secure deployments.",
+      "Iterate quickly with your feedback to refine UX and features.",
     ],
     progress: 75,
     image: "/Development.svg",
   },
   {
     id: "S04",
-    title: "Launch & Grow",
+    title: "Go Live & Scale",
     subtitle:
-      "Transform your design into a successful product launch with post-launch support and continuous improvement.",
+      "Launch confidently and grow with continuous improvements and analytics.",
     desc: [
-      "Create visually striking launch materials, marketing assets, and campaign creatives.",
-      "Conduct pre-launch QA to ensure design integrity across browsers and devices.",
-      "Monitor early user behavior and refine UX based on real-world data.",
-      "Provide ongoing design iterations to align with growth, feedback, and trends.",
-      "Build a long-term partnership with TechMystry — where design evolves with your business.",
+      "Ship to production with monitoring, backups, and alerts.",
+      "Track user behavior and optimize funnels and SEO.",
+      "Plan new features, A/B experiments, and scale infrastructure.",
+      "Partner long-term — performance reviews and roadmap updates.",
     ],
     progress: 100,
     image: "/Grow.svg",
@@ -118,10 +114,14 @@ export default function ProcessSection() {
   const step = steps[active];
 
   return (
-    <section
+    <motion.section
       ref={sectionRef}
       id="process"
       className="relative w-full min-h-screen bg-white flex flex-col items-center justify-center px-6 md:px-10 py-20 overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Header */}
       <motion.div
@@ -227,6 +227,6 @@ export default function ProcessSection() {
           </div>
         </div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 }

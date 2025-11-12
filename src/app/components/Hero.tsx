@@ -8,9 +8,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import {
-  GitBranch,
-} from "lucide-react";
+import { GitBranch, ArrowRight } from "lucide-react";
 
 // 🔹 Smooth Left Fade-in Animation
 const fadeInLeft: Variants = {
@@ -62,7 +60,8 @@ const FloatingMockup = () => {
         const currentLine = fullCodeLines[lineIndex];
         setCodeLines((prev) => {
           const newLines = [...prev];
-          newLines[lineIndex] = currentLine.slice(0, charIndex + 1);
+          const sliceLen = charIndex + 1;
+          newLines[lineIndex] = sliceLen <= 1 ? "" : currentLine.slice(0, sliceLen);
           return newLines;
         });
         charIndex++;
@@ -178,12 +177,20 @@ const FloatingMockup = () => {
 const CurvedArrow = ({ className = "" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 60 30"
-    className={`w-12 h-12 text-gray-400 ${className}`}
+    viewBox="0 0 72 36"
+    className={`w-12 h-12 text-gray-500 ${className}`}
   >
     <path
-      d="M5 10 C15 0, 40 0, 50 10 M50 10 L40 0 M50 10 L40 20"
+      d="M6 26 C 22 8, 50 8, 66 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M66 20 L58 14 M66 20 L58 26"
+      fill="none"
       stroke="currentColor"
       strokeWidth="2.5"
       strokeLinecap="round"
@@ -198,32 +205,32 @@ const HeroSection = () => {
   const rotate = useTransform(scrollY, [0, 600], [0, 360]);
 
   return (
-    <section 
-    id="hero"
-    className="relative w-full h-screen bg-[#f9f9f9] text-gray-900 overflow-hidden">
+    <motion.section
+      id="home"
+      className="relative w-full min-h-screen bg-[#f9f9f9] text-gray-900 overflow-hidden scroll-mt-24"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="absolute inset-0 bg-gradient-to-br from-gray-100/50 to-gray-200/50" />
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{ opacity: [0.2, 0.4, 0.2] }}
         transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
       >
-        {[...Array(10)].map((_, i) => (
+        {Array.from({ length: 10 }, (_, i) => ({
+          left: `${(i * 11 + 7) % 100}%`,
+          top: `${(i * 17 + 9) % 100}%`,
+          duration: 5 + (i % 5) * 0.8,
+          delay: (i % 4) * 0.5,
+        })).map((p, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-gray-400/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.1, 0.3, 0.1],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 5,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
+            style={{ left: p.left, top: p.top }}
+            animate={{ y: [0, -20, 0], opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
           />
         ))}
       </motion.div>
@@ -238,7 +245,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 flex flex-col gap-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-20 pb-14 flex flex-col gap-6 relative z-10">
         <motion.div
           variants={fadeInLeft}
           initial="hidden"
@@ -248,13 +255,13 @@ const HeroSection = () => {
           <div className="flex flex-col">
             <motion.h1
               variants={fadeInLeft}
-              className="text-4xl md:text-5xl font-bold leading-tight tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight"
             >
               We Create Digital
               <br />
               <div className="flex items-center gap-2">
                 <CurvedArrow />
-                <span className="text-[3.5rem] md:text-[4.5rem] font-bold">
+                <span className="text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold">
                   Brilliance
                 </span>
 
@@ -270,9 +277,9 @@ const HeroSection = () => {
             <motion.p
               variants={fadeInLeft}
               transition={{ delay: 0.2 }}
-              className="text-gray-600 text-sm mt-3"
+              className="text-gray-600 text-sm sm:text-base mt-3"
             >
-              Building scalable apps with React, Node.js, and CI/CD
+              Transforming vision into seamless digital reality.
             </motion.p>
           </div>
 
@@ -282,16 +289,16 @@ const HeroSection = () => {
             className="flex flex-col justify-between text-xs md:text-sm max-w-sm"
           >
             <p className="text-gray-600 leading-relaxed">
-              <strong>TechMystry</strong> is a full-stack development studio
-              building robust, scalable solutions with seamless frontend and backend integration.
+                <strong>TechMystry</strong> is a digital technology studio delivering next-gen <strong>Web</strong>, <strong>App</strong>, <strong>Cloud</strong>, and <strong>SEO</strong> solutions.  
+                  We help startups and enterprises build scalable, secure, and high-performance digital ecosystems.
             </p>
 
             <motion.a
-              href="#works"
+              href="#projects"
               whileHover={{ x: 4, scale: 1.05 }}
-              className="flex items-center gap-2 mt-4 font-medium text-gray-800 bg-gray-200/50 px-3 py-2 rounded-lg hover:bg-gray-300/50 hover:underline transition-all"
+              className="flex items-center gap-2 mt-4 font-medium text-gray-800 bg-gray-200/50 px-3 py-2 rounded-lg hover:bg-gray-300/50 transition-all"
             >
-              <CurvedArrow className="rotate-45 w-4 h-4" />
+              <ArrowRight className="w-4 h-4" />
               Explore projects
             </motion.a>
           </motion.div>
@@ -307,11 +314,11 @@ const HeroSection = () => {
           <motion.div
             className="flex items-center gap-4 text-xs font-medium text-gray-600"
             animate={{ x: ["0%", "-100%"] }}
-            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+            transition={{ repeat: Infinity, duration: 22, ease: "linear" }}
           >
             {Array(2)
               .fill(
-                "FRONTEND ✱ BACKEND → DATABASE ✱ DEVOPS + APIs ✱ SCALABILITY → PERFORMANCE ✱ DEPLOYMENT + CI/CD"
+"WEB ✱ APP DEVELOPMENT → CLOUD SOLUTIONS ✱ SEO OPTIMIZATION ✱ UI/UX → FULL-STACK INTEGRATION ✱ DIGITAL TRANSFORMATION ✱ SCALABILITY + SECURITY"
               )
               .map((text, i) => (
                 <span key={i} className="flex items-center gap-2 flex-shrink-0">
@@ -333,7 +340,7 @@ const HeroSection = () => {
           <FloatingMockup />
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -27,10 +27,20 @@ const CallToActionSection: React.FC = () => {
     },
   ];
 
+  // Deterministic pseudo-random generator based on index
+  const prng = (i: number) => {
+    const x = Math.sin(i * 9973) * 10000;
+    return x - Math.floor(x);
+  };
+
   return (
-    <section
+    <motion.section
       id="cta"
       className="relative h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 text-gray-900 overflow-hidden px-4 md:px-10"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Background Glow Accents */}
       <div className="absolute top-0 left-0 w-[350px] h-[350px] bg-gray-400/20 rounded-full blur-3xl -z-10" />
@@ -38,27 +48,22 @@ const CallToActionSection: React.FC = () => {
 
       {/* Floating Sparkles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <motion.span
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-70"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              opacity: [0.3, 1, 0.3],
-              y: [0, -15, 0],
-              x: [0, Math.random() * 10 - 5, 0],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+        {Array.from({ length: 12 }).map((_, i) => {
+          const top = (prng(i) * 100).toFixed(3);
+          const left = (prng(i + 43) * 100).toFixed(3);
+          const amp = prng(i + 99) * 10 - 5; // -5 to 5
+          const duration = 2 + (i % 5) * 0.4;
+          const delay = (i % 4) * 0.2;
+          return (
+            <motion.span
+              key={i}
+              className="absolute w-1 h-1 bg-white rounded-full opacity-70"
+              style={{ top: `${top}%`, left: `${left}%` }}
+              animate={{ opacity: [0.3, 1, 0.3], y: [0, -15, 0], x: [0, amp, 0] }}
+              transition={{ duration, repeat: Infinity, delay, ease: "easeInOut" }}
+            />
+          );
+        })}
       </div>
 
       {/* Grid Layout */}
@@ -214,7 +219,7 @@ const CallToActionSection: React.FC = () => {
           }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 };
 
