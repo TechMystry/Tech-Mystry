@@ -32,15 +32,15 @@ export default function ProjectsSection() {
       title: "IAEPune.com",
       description:
         "Study Abroad platform helping students explore global education opportunities with ease and personalized guidance.",
-      url: "https://iaepune.com/",
+      url: "https://iaepune.vercel.app/",
       tech: ["Next.js", "Tailwind"],
       stats: { users: "5K+", countries: "25+", uptime: "99%" },
     },
     {
-      title: "Waardian.com",
+      title: "HTDeveloper.com",
       description:
         "Professional construction & infrastructure solutions built for seamless project management and client experience.",
-      url: "https://waardian.com/",
+      url: "https://htdeveloper.com",
       tech: ["React", "Tailwind"],
       stats: { projects: "200+", clients: "50+", uptime: "99%" },
     },
