@@ -37,10 +37,10 @@ export default function ProjectsSection() {
       stats: { users: "5K+", countries: "25+", uptime: "99%" },
     },
     {
-      title: "HTDeveloper.com",
+      title: "Waardian.com",
       description:
         "Professional construction & infrastructure solutions built for seamless project management and client experience.",
-      url: "https://htdeveloper.com",
+      url: "https://waardian.com/",
       tech: ["React", "Tailwind"],
       stats: { projects: "200+", clients: "50+", uptime: "99%" },
     },
