@@ -32,7 +32,7 @@ export default function ProjectsSection() {
       title: "IAEPune.com",
       description:
         "Study Abroad platform helping students explore global education opportunities with ease and personalized guidance.",
-      url: "https://iaepune.com",
+      url: "https://iaepune.com/",
       tech: ["Next.js", "Tailwind"],
       stats: { users: "5K+", countries: "25+", uptime: "99%" },
     },
