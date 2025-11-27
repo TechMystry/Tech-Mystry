@@ -6,16 +6,16 @@ import OurProcess from "./components/OurProcess";
 import ProjectsSection from "./components/ProjectsSection";
 import CallToActionSection from "./components/CallToActionSection";
 import ContactSection from "./components/ContactUs";
-
+import ServiceStack from "./components/ServiceStack";
 export default function HomePage() {
   return (
-    <>
+    <main className="relative">
       <HeroSection />
-      <TabbedServices />
+      <ServiceStack />
       <OurProcess />
       <ProjectsSection />
       <CallToActionSection />
       <ContactSection />
-    </>
+    </main>
   );
 }

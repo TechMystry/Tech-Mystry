@@ -249,7 +249,7 @@ export default function AnimatedFooter() {
         <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 px-4 sm:px-6">
           <p>© {currentYear} TechMystry. All rights reserved.</p>
           <p className="mt-2 sm:mt-0">
-            Designed with [heart] by <span className="font-semibold">TechMystry</span>
+            Designed with ❤️
           </p>
         </div>
 

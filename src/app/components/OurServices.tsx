@@ -243,16 +243,14 @@ const ExpertiseSection = () => {
                       whileTap={{ scale: 0.98 }}
                       onClick={() => setSelected(i)}
                       aria-label={s.title}
-                      className={`min-w-[72px] flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl border transition-all duration-300 ${
-                        isActive
-                          ? "bg-gray-900 text-white border-gray-900 shadow-md"
-                          : "bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
-                      }`}
+                      className={`min-w-[72px] flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl border transition-all duration-300 ${isActive
+                        ? "bg-gray-900 text-white border-gray-900 shadow-md"
+                        : "bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                        }`}
                     >
                       <span
-                        className={`p-2 rounded-lg ${
-                          isActive ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-700"
-                        }`}
+                        className={`p-2 rounded-lg ${isActive ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-700"
+                          }`}
                       >
                         <Icon className="w-5 h-5" />
                       </span>
@@ -280,19 +278,17 @@ const ExpertiseSection = () => {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.04 }}
                     onClick={() => setSelected(i)}
-                    className={`flex items-center justify-between p-3 rounded-xl border transition-all duration-500 ${
-                      isActive
-                        ? "bg-gray-900 text-white border-gray-900 shadow-xl"
-                        : "bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
-                    }`}
+                    className={`flex items-center justify-between p-3 rounded-xl border transition-all duration-500 ${isActive
+                      ? "bg-gray-900 text-white border-gray-900 shadow-xl"
+                      : "bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                      }`}
                   >
                     <div className="flex items-center gap-2 text-left">
                       <div
-                        className={`p-2 rounded-lg ${
-                          isActive
-                            ? "bg-gray-800 text-white"
-                            : "bg-gray-100 text-gray-700"
-                        }`}
+                        className={`p-2 rounded-lg ${isActive
+                          ? "bg-gray-800 text-white"
+                          : "bg-gray-100 text-gray-700"
+                          }`}
                       >
                         <Icon className="w-4 h-4" />
                       </div>
@@ -738,11 +734,10 @@ const ExpertiseSection = () => {
                         </h4>
                         <p className="text-gray-900 font-bold text-sm">{stat.value}</p>
                         <p
-                          className={`text-[10px] font-medium ${
-                            stat.change.startsWith("+") || stat.change.startsWith("↑")
-                              ? "text-green-600"
-                              : "text-red-500"
-                          }`}
+                          className={`text-[10px] font-medium ${stat.change.startsWith("+") || stat.change.startsWith("↑")
+                            ? "text-green-600"
+                            : "text-red-500"
+                            }`}
                         >
                           {stat.change}
                         </p>

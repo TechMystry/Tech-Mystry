@@ -106,13 +106,12 @@ const FloatingMockup = () => {
           {codeLines.map((line, i) => (
             <div
               key={i}
-              className={`transition-all ${
-                i === 0
-                  ? "text-emerald-400"
-                  : i === fullCodeLines.length - 1
+              className={`transition-all ${i === 0
+                ? "text-emerald-400"
+                : i === fullCodeLines.length - 1
                   ? "text-gray-100 font-semibold"
                   : "text-gray-400"
-              }`}
+                }`}
             >
               {line}
             </div>
@@ -204,6 +203,31 @@ const HeroSection = () => {
   const { scrollY } = useScroll();
   const rotate = useTransform(scrollY, [0, 600], [0, 360]);
 
+  // --- NEW: animated words for the "Brilliance" slot ---
+  const words = [
+    { text: "Brilliance", gradient: "from-pink-500 via-red-500 to-yellow-400" },
+    { text: "Innovation", gradient: "from-indigo-500 via-purple-500 to-pink-500" },
+    { text: "Creativity", gradient: "from-emerald-400 via-lime-400 to-yellow-300" },
+    { text: "Precision", gradient: "from-sky-500 via-blue-500 to-indigo-500" },
+    { text: "Impact", gradient: "from-rose-400 via-orange-400 to-amber-400" },
+  ];
+
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setWordIndex((p) => (p + 1) % words.length);
+    }, 2500); // change every 2.5s
+    return () => clearInterval(t);
+  }, []);
+
+  const wordVariants: Variants = {
+    initial: { y: 24, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 0.55, ease: "easeOut" } },
+    exit: { y: -18, opacity: 0, transition: { duration: 0.45, ease: "easeIn" } },
+  };
+  // --- END NEW ---
+
   return (
     <motion.section
       id="home"
@@ -258,20 +282,36 @@ const HeroSection = () => {
               className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight"
             >
               We Create Digital
-              <br />
+              <motion.span
+                style={{ rotate }}
+                className="relative inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#ddd] shadow-md ml-3"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="w-10 h-10 md:w-12 md:h-12" >
+                  <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /> </svg>
+                <span className="absolute w-2 h-2 md:w-2.5 md:h-2.5 bg-white rounded-full shadow-sm" />
+              </motion.span>
               <div className="flex items-center gap-2">
                 <CurvedArrow />
-                <span className="text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold">
-                  Brilliance
-                </span>
-
-                <motion.span
-                  style={{ rotate }}
-                  className="relative inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#ddd] shadow-md"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="w-10 h-10 md:w-12 md:h-12" > <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" /> <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /> </svg>
-                  <span className="absolute w-2 h-2 md:w-2.5 md:h-2.5 bg-white rounded-full shadow-sm" />
-                </motion.span>
+                {/* --- UPDATED: Animated word slot --- */}
+                <div className="relative flex items-center">
+                  <div className="relative inline-flex items-center">
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={wordIndex}
+                        variants={wordVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        className={`text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold bg-clip-text text-transparent bg-gradient-to-r ${words[wordIndex].gradient}`}
+                        style={{ lineHeight: 1 }}
+                      >
+                        {words[wordIndex].text}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+                </div>
+                {/* --- end updated slot --- */}
               </div>
             </motion.h1>
             <motion.p
@@ -289,8 +329,8 @@ const HeroSection = () => {
             className="flex flex-col justify-between text-xs md:text-sm max-w-sm"
           >
             <p className="text-gray-600 leading-relaxed">
-                <strong>TechMystry</strong> is a digital technology studio delivering next-gen <strong>Web</strong>, <strong>App</strong>, <strong>Cloud</strong>, and <strong>SEO</strong> solutions.  
-                  We help startups and enterprises build scalable, secure, and high-performance digital ecosystems.
+              <strong>TechMystry</strong> is a digital technology studio delivering next-gen <strong>Web</strong>, <strong>App</strong>, <strong>Cloud</strong>, and <strong>SEO</strong> solutions.
+              We help startups and enterprises build scalable, secure, and high-performance digital ecosystems.
             </p>
 
             <motion.a
@@ -318,7 +358,7 @@ const HeroSection = () => {
           >
             {Array(2)
               .fill(
-"WEB ✱ APP DEVELOPMENT → CLOUD SOLUTIONS ✱ SEO OPTIMIZATION ✱ UI/UX → FULL-STACK INTEGRATION ✱ DIGITAL TRANSFORMATION ✱ SCALABILITY + SECURITY"
+                "WEB ✱ APP DEVELOPMENT → CLOUD SOLUTIONS ✱ SEO OPTIMIZATION ✱ UI/UX → FULL-STACK INTEGRATION ✱ DIGITAL TRANSFORMATION ✱ SCALABILITY + SECURITY"
               )
               .map((text, i) => (
                 <span key={i} className="flex items-center gap-2 flex-shrink-0">

@@ -1,188 +1,245 @@
+// src/components/NavBar.tsx
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowBigRightDash, Menu, X } from "lucide-react";
-import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// ✅ Create animated Link component
-const MotionLink = motion(Link);
+/**
+ * Tweak these:
+ * FLIP_DUR  -> seconds for motion animations (flip / popup)
+ * HIGHLIGHT_MS -> ms for the underline transition
+ */
+const FLIP_DUR = 0.50; // seconds (lower = faster)
+const HIGHLIGHT_MS = 200; // milliseconds (lower = snappier)
 
 export default function NavBar() {
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  const pillRef = useRef<HTMLDivElement | null>(null);
+  const popupRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // only prevent background scroll for mobile popup (open && not desktop)
+  useEffect(() => {
+    const shouldLock = open && !isDesktop;
+    document.documentElement.style.overflow = shouldLock ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [open, isDesktop]);
+
+  // close when clicking outside the pill (desktop) OR outside popup (mobile)
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (!open) return;
+      const target = e.target as Node;
+      const insidePill = pillRef.current?.contains(target);
+      const insidePopup = popupRef.current?.contains(target);
+      if (!insidePill && !insidePopup) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
+
+  const menuItems = [
+    { href: "/#home", label: "Home" },
+    { href: "/#expertise", label: "Service" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/ContactForm", label: "Let’s connect", cta: true },
+  ];
+
+  const frontVariants = {
+    visible: { rotateY: 0, opacity: 1 },
+    hidden: { rotateY: 180, opacity: 0 },
+  };
+  const backVariants = {
+    hidden: { rotateY: -180, opacity: 0 },
+    visible: { rotateY: 0, opacity: 1 },
+  };
+
   return (
-    <>
-    <motion.header
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`flex items-center justify-between w-full px-10 py-5 sticky top-0 z-50 transition-all duration-500 backdrop-blur-md ${
-        scrolled ? "bg-[#f9f9f9]/90 shadow-md" : "bg-transparent"
-      }`}
-    >
-      {/* Left: Logo */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center"
-      >
-        <Image
-          src="/Logo_TechMystry_.png"
-          alt="TechMystry Logo"
-          width={50}
-          height={40}
-          className="object-contain"
-        />
-      </motion.div>
-
-      {/* Center: Navigation */}
-      <motion.nav
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="hidden md:flex items-center gap-10"
-      >
-        {[
-          { label: "Home", href: "/#home" },
-          { label: "Service", href: "/#expertise" },
-          { label: "Process", href: "/#process" },
-          { label: "Projects", href: "/#projects" },
-        ].map(({ label, href }) => (
-          <motion.a
-            key={label}
-            href={href}
-            whileHover={{ y: -2 }}
-            className={`relative font-medium text-sm transition-colors duration-200 ${
-              scrolled
-                ? "text-gray-800 hover:text-black"
-                : "text-black hover:text-gray-700"
-            }`}
-          >
-            {label}
-            <motion.span
-              className="absolute left-0 bottom-0 w-0 h-[2px] rounded-full bg-black"
-              whileHover={{ width: "100%" }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.a>
-        ))}
-      </motion.nav>
-
-      {/* Right: Let’s Connect Button */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.4 }}
-        className="hidden md:flex items-center gap-4"
-      >
-        {/* ✅ Motion Link (no nested anchor issue) */}
-        <MotionLink
-          href="/ContactForm"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`group flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 ${
-            scrolled
-              ? "bg-black text-white hover:bg-gray-900"
-              : "bg-black/10 text-black hover:bg-black/20 backdrop-blur-sm"
-          }`}
+    <header className="w-full bg-[#f9f9f9] sticky top-0 z-50">
+      <div className="max-w-[1100px] mx-auto px-4 md:px-6">
+        <motion.div
+          initial={{ y: -16, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: FLIP_DUR, ease: "easeOut" }}
+          className={`mx-auto my-3 rounded-full transition-shadow duration-300 ${scrolled ? "shadow-lg" : "shadow-sm"}`}
+          style={{ maxWidth: 920 }}
         >
-          Let’s connect
-          <motion.span
-            initial={{ x: 0 }}
-            whileHover={{ x: 4, rotate: 10 }}
-            transition={{ type: "spring", stiffness: 200 }}
-          >
-            <ArrowBigRightDash
-              size={18}
-              className={scrolled ? "text-white" : "text-black"}
-            />
-          </motion.span>
-        </MotionLink>
-      </motion.div>
-
-      {/* Mobile hamburger */}
-      <motion.button
-        initial={{ opacity: 0, x: 10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.35 }}
-        aria-label="Toggle navigation"
-        aria-expanded={mobileOpen}
-        onClick={() => setMobileOpen((v) => !v)}
-        className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl border border-gray-300/60 bg-white/70 backdrop-blur-sm shadow-sm"
-      >
-        {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </motion.button>
-    </motion.header>
-
-    {/* Mobile menu overlay */}
-    <motion.div
-      initial={false}
-      animate={{
-        opacity: mobileOpen ? 1 : 0,
-        pointerEvents: mobileOpen ? "auto" : "none",
-      }}
-      transition={{ duration: 0.2 }}
-      className="md:hidden fixed inset-0 z-40"
-    >
-      <motion.div
-        initial={{ y: -30, opacity: 0 }}
-        animate={{ y: mobileOpen ? 0 : -30, opacity: mobileOpen ? 1 : 0 }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
-        className={`mx-4 mt-4 rounded-2xl shadow-lg border ${
-          scrolled ? "border-gray-300 bg-[#f9f9f9]/95" : "border-gray-200 bg-white/95"
-        } backdrop-blur-md p-6 flex flex-col gap-4`}
-      >
-        <div className="flex items-center justify-between">
-          <span className="font-semibold text-gray-900">Menu</span>
-          <button
-            aria-label="Close navigation"
-            onClick={() => setMobileOpen(false)}
-            className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-300/60"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-        <div className="grid gap-3">
-          {[
-            { label: "Home", href: "/#home" },
-            { label: "Service", href: "/#expertise" },
-            { label: "Process", href: "/#process" },
-            { label: "Projects", href: "/#projects" },
-          ].map(({ label, href }, i) => (
-            <MotionLink
-              key={label}
-              href={href}
-              whileHover={{ x: 4 }}
-              className="flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 bg-white/80"
-              onClick={() => setMobileOpen(false)}
+          <div ref={pillRef} style={{ perspective: 1000 }} className="relative">
+            <div
+              className="bg-black rounded-full px-4 md:px-6 py-2 flex items-center justify-between gap-4"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <span className="font-medium text-gray-800">{label}</span>
-              <ArrowBigRightDash className="w-5 h-5 text-gray-600" />
-            </MotionLink>
-          ))}
-        </div>
-        <MotionLink
-          href="/ContactForm"
-          whileHover={{ scale: 1.03 }}
-          className="mt-2 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-black text-white shadow-md"
-          onClick={() => setMobileOpen(false)}
-        >
-          Let’s connect
-          <ArrowBigRightDash size={18} />
-        </MotionLink>
-      </motion.div>
-    </motion.div>
-    </>
+              {/* Front */}
+              <motion.div
+                variants={frontVariants}
+                animate={isDesktop && open ? "hidden" : "visible"}
+                initial="visible"
+                transition={{ duration: FLIP_DUR }}
+                className="relative w-full flex items-center justify-between"
+                style={{ backfaceVisibility: "hidden" }}
+              >
+                <Link href="/" className="flex items-center gap-3">
+                  <span className="flex items-center justify-center w-9 h-9 rounded-full">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="6" cy="6" r="2.8" fill="#FFF24A" />
+                      <circle cx="12" cy="4" r="2.6" fill="#FFF24A" />
+                      <circle cx="18" cy="7" r="2.3" fill="#FFF24A" />
+                      <rect x="10.4" y="10.5" width="3" height="7.5" rx="0.9" fill="#FFF24A" />
+                    </svg>
+                  </span>
+
+                  <span className="hidden sm:block text-white font-semibold text-sm">
+                    TechMystry<span className="text-white/70">.studio</span>
+                  </span>
+                </Link>
+
+                {/* Hamburger: on desktop it only opens, it will NOT close the flipped menu */}
+                <button
+                  aria-label={open ? "Close menu" : "Open menu"}
+                  onClick={() => {
+                    if (isDesktop && open) return; // prevent closing via hamburger on desktop
+                    setOpen((s) => !s);
+                  }}
+                  className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/10 shadow-sm hover:scale-105 active:scale-95 transition-transform"
+                >
+                  {open ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+                </button>
+              </motion.div>
+
+              {/* Back (desktop in-place menu) */}
+              <motion.div
+                variants={backVariants}
+                animate={isDesktop && open ? "visible" : "hidden"}
+                initial="hidden"
+                transition={{ duration: FLIP_DUR }}
+                className="absolute inset-0 flex items-center justify-between px-4"
+                style={{ backfaceVisibility: "hidden", transformStyle: "preserve-3d" }}
+              >
+                <div className="flex items-center gap-3">
+                  {menuItems.slice(0, 3).map((m) => (
+                    <Link
+                      key={m.href}
+                      href={m.href}
+                      onClick={() => {
+                        // desktop: do NOT close the flipped menu on item click
+                        // mobile: closing is handled below in mobile popup code
+                        if (!isDesktop) setOpen(false);
+                      }}
+                      className="text-white/90 font-medium text-sm px-3 py-2 rounded-md hover:bg-white/6 transition"
+                    >
+                      {m.label}
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/ContactForm"
+                    onClick={() => {
+                      if (!isDesktop) setOpen(false);
+                    }}
+                    className="px-3 py-2 rounded-full bg-white text-black font-medium text-sm"
+                  >
+                    Let’s connect
+                  </Link>
+
+                  {/* Small X inside flipped pill; this closes the pill */}
+                  <button
+                    aria-label="Close menu"
+                    onClick={() => setOpen(false)}
+                    className="w-9 h-9 rounded-full flex items-center justify-center bg-white/8 hover:bg-white/12 transition"
+                  >
+                    <X className="w-4 h-4 text-white" />
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Mobile popup when not desktop */}
+      <AnimatePresence>
+        {open && !isDesktop && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.45 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: FLIP_DUR }}
+              className="fixed inset-0 bg-black z-40"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.99 }}
+              transition={{ duration: FLIP_DUR }}
+              className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4"
+            >
+              <div
+                ref={popupRef}
+                className="relative w-full max-w-xs bg-white rounded-3xl p-6 shadow-2xl ring-1 ring-black/5"
+              >
+                <button
+                  onClick={() => setOpen(false)}
+                  className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition"
+                >
+                  <X className="w-5 h-5 text-gray-700" />
+                </button>
+
+                <ul className="flex flex-col gap-3 mt-4">
+                  {menuItems.map((m) => (
+                    <li key={m.href}>
+                      <Link
+                        href={m.href}
+                        onClick={() => setOpen(false)} // mobile: close on item tap
+                        className={`group relative block w-full text-center px-4 py-3 rounded-lg font-semibold transition ${m.cta ? "bg-black text-white" : "text-gray-900 hover:bg-gray-100"}`}
+                      >
+                        {m.label}
+                        <span
+                          className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-[2px] bg-[#FFF24A] scale-x-0 group-hover:scale-x-100 transform origin-center rounded-full"
+                          style={{ transitionProperty: "transform, opacity", transitionDuration: `${HIGHLIGHT_MS}ms` }}
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-4 text-xs text-center text-gray-400">© TechMystry · Studio</div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }
