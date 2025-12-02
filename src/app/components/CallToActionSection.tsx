@@ -36,7 +36,7 @@ const CallToActionSection: React.FC = () => {
   return (
     <motion.section
       id="cta"
-      className="relative h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 text-gray-900 overflow-hidden px-4 md:px-10"
+      className="relative h-screen flex flex-col justify-center items-center bg-white text-gray-900 overflow-hidden px-4 md:px-10"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}

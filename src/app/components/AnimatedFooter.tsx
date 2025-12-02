@@ -48,7 +48,7 @@ export default function AnimatedFooter() {
   const socialLinks = [
     { icon: Linkedin, href: "https://www.linkedin.com/company/techmystrymedia/" },
     { icon: Instagram, href: "https://www.instagram.com/techmystry?igsh=MWFhbWV6aDNwYXZvdQ==" },
-    { icon: Youtube, href: "//youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
+    { icon: Youtube, href: "https://youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
   ];
 
   const currentYear = new Date().getFullYear();
@@ -106,7 +106,7 @@ export default function AnimatedFooter() {
         />
       </a>
 
-      <footer className="relative overflow-hidden bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300 text-gray-800 py-10 sm:py-12">
+      <footer className="relative overflow-hidden bg-white text-gray-800 py-10 sm:py-12">
         {/* Background Accent Glow */}
         <div className="absolute inset-0 -z-10">
           <div
@@ -249,7 +249,7 @@ export default function AnimatedFooter() {
         <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 px-4 sm:px-6">
           <p>© {currentYear} TechMystry. All rights reserved.</p>
           <p className="mt-2 sm:mt-0">
-            Designed with ❤️
+            Powered by <span className="font-semibold text-blue-500">Waardian</span>
           </p>
         </div>
 

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F7F7F7;
+  --background: bg-gradient-to-br from-[#e9f3ff] via-[#dce8f8] to-[#f4f7fa];
   --foreground: #171717;
 }
 
@@ -14,7 +14,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #F7F7F7;
+    --background: bg-gradient-to-br from-[#e9f3ff] via-[#dce8f8] to-[#f4f7fa];
     --foreground: #ededed;
   }
 }

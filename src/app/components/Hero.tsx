@@ -90,10 +90,9 @@ const FloatingMockup = () => {
       className="
         relative w-full max-w-5xl mx-auto 
         bg-neutral-900/90 border border-neutral-800 
-        rounded-2xl p-5 shadow-2xl 
+        rounded-2xl p-5 
         flex flex-col sm:flex-row items-stretch gap-6
         hover:border-emerald-400/50 transition-all duration-500
-        after:absolute after:inset-0 after:bg-emerald-400/10 after:blur-xl after:opacity-0 hover:after:opacity-30 after:transition-opacity after:duration-500
       "
     >
       <motion.div
@@ -203,72 +202,15 @@ const HeroSection = () => {
   const { scrollY } = useScroll();
   const rotate = useTransform(scrollY, [0, 600], [0, 360]);
 
-  // --- NEW: animated words for the "Brilliance" slot ---
-  const words = [
-    { text: "Brilliance", gradient: "from-pink-500 via-red-500 to-yellow-400" },
-    { text: "Innovation", gradient: "from-indigo-500 via-purple-500 to-pink-500" },
-    { text: "Creativity", gradient: "from-emerald-400 via-lime-400 to-yellow-300" },
-    { text: "Precision", gradient: "from-sky-500 via-blue-500 to-indigo-500" },
-    { text: "Impact", gradient: "from-rose-400 via-orange-400 to-amber-400" },
-  ];
-
-  const [wordIndex, setWordIndex] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setWordIndex((p) => (p + 1) % words.length);
-    }, 2500); // change every 2.5s
-    return () => clearInterval(t);
-  }, []);
-
-  const wordVariants: Variants = {
-    initial: { y: 24, opacity: 0 },
-    animate: { y: 0, opacity: 1, transition: { duration: 0.55, ease: "easeOut" } },
-    exit: { y: -18, opacity: 0, transition: { duration: 0.45, ease: "easeIn" } },
-  };
-  // --- END NEW ---
-
   return (
     <motion.section
       id="home"
-      className="relative w-full min-h-screen bg-[#f9f9f9] text-gray-900 overflow-hidden scroll-mt-24"
+      className="relative w-full min-h-screen bg-white text-gray-900 overflow-hidden scroll-mt-24 pt-20"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-100/50 to-gray-200/50" />
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        animate={{ opacity: [0.2, 0.4, 0.2] }}
-        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-      >
-        {Array.from({ length: 10 }, (_, i) => ({
-          left: `${(i * 11 + 7) % 100}%`,
-          top: `${(i * 17 + 9) % 100}%`,
-          duration: 5 + (i % 5) * 0.8,
-          delay: (i % 4) * 0.5,
-        })).map((p, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-gray-400/20 rounded-full"
-            style={{ left: p.left, top: p.top }}
-            animate={{ y: [0, -20, 0], opacity: [0.1, 0.3, 0.1] }}
-            transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
-          />
-        ))}
-      </motion.div>
-
-      <motion.div
-        className="absolute inset-0 opacity-5 font-mono text-[0.6rem] text-gray-500 pointer-events-none"
-        animate={{ x: ["0%", "-100%"] }}
-        transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-      >
-        <div className="whitespace-nowrap">
-          {"const fullStack = () => { frontend: React, backend: Node.js, db: MongoDB, deploy: CI/CD }; "}
-        </div>
-      </motion.div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-20 pb-14 flex flex-col gap-6 relative z-10">
         <motion.div
           variants={fadeInLeft}
@@ -282,36 +224,20 @@ const HeroSection = () => {
               className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight"
             >
               We Create Digital
-              <motion.span
-                style={{ rotate }}
-                className="relative inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#ddd] shadow-md ml-3"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="w-10 h-10 md:w-12 md:h-12" >
-                  <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /> </svg>
-                <span className="absolute w-2 h-2 md:w-2.5 md:h-2.5 bg-white rounded-full shadow-sm" />
-              </motion.span>
+              <br />
               <div className="flex items-center gap-2">
                 <CurvedArrow />
-                {/* --- UPDATED: Animated word slot --- */}
-                <div className="relative flex items-center">
-                  <div className="relative inline-flex items-center">
-                    <AnimatePresence mode="wait" initial={false}>
-                      <motion.span
-                        key={wordIndex}
-                        variants={wordVariants}
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                        className={`text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold bg-clip-text text-transparent bg-gradient-to-r ${words[wordIndex].gradient}`}
-                        style={{ lineHeight: 1 }}
-                      >
-                        {words[wordIndex].text}
-                      </motion.span>
-                    </AnimatePresence>
-                  </div>
-                </div>
-                {/* --- end updated slot --- */}
+                <span className="text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold">
+                  Brilliance
+                </span>
+
+                <motion.span
+                  style={{ rotate }}
+                  className="relative inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#ddd] shadow-md"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="w-10 h-10 md:w-12 md:h-12" > <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" /> <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /> </svg>
+                  <span className="absolute w-2 h-2 md:w-2.5 md:h-2.5 bg-white rounded-full shadow-sm" />
+                </motion.span>
               </div>
             </motion.h1>
             <motion.p
@@ -335,11 +261,25 @@ const HeroSection = () => {
 
             <motion.a
               href="#projects"
-              whileHover={{ x: 4, scale: 1.05 }}
-              className="flex items-center gap-2 mt-4 font-medium text-gray-800 bg-gray-200/50 px-3 py-2 rounded-lg hover:bg-gray-300/50 transition-all"
+              className="relative inline-flex items-center gap-2 mt-4 font-medium text-white overflow-hidden overflow-hidden rounded-lg"
+              whileHover="hover"
             >
-              <ArrowRight className="w-4 h-4" />
-              Explore projects
+              {/* Always visible black background — exactly fits the content */}
+              <div className="absolute inset-0 bg-black rounded-lg" />
+
+              {/* Shine that sweeps on hover */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent"
+                initial={{ x: "-100%" }}
+                variants={{ hover: { x: "100%" } }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+              />
+
+              {/* Text + Arrow — ZERO extra padding */}
+              <span className="relative z-10 flex items-center gap-2 px-3 py-1.5">
+                Explore projects
+                <ArrowRight className="w-4 h-4" />
+              </span>
             </motion.a>
           </motion.div>
         </motion.div>
