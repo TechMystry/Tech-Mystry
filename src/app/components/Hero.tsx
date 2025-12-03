@@ -90,8 +90,8 @@ const FloatingMockup = () => {
       className="
         relative w-full max-w-5xl mx-auto 
         bg-neutral-900/90 border border-neutral-800 
-        rounded-2xl p-5 
-        flex flex-col sm:flex-row items-stretch gap-6
+        rounded-2xl p-4 sm:p-5 
+        flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6
         hover:border-emerald-400/50 transition-all duration-500
       "
     >
@@ -211,7 +211,7 @@ const HeroSection = () => {
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-20 pb-14 flex flex-col gap-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-16 sm:pt-20 pb-10 sm:pb-14 flex flex-col gap-4 sm:gap-6 relative z-10">
         <motion.div
           variants={fadeInLeft}
           initial="hidden"
@@ -221,21 +221,21 @@ const HeroSection = () => {
           <div className="flex flex-col">
             <motion.h1
               variants={fadeInLeft}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight"
             >
               We Create Digital
               <br />
               <div className="flex items-center gap-2">
                 <CurvedArrow />
-                <span className="text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold">
+                <span className="text-[2.5rem] sm:text-[3rem] md:text-[4rem] lg:text-[4.5rem] font-bold">
                   Brilliance
                 </span>
 
                 <motion.span
                   style={{ rotate }}
-                  className="relative inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#ddd] shadow-md"
+                  className="relative inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#ddd] shadow-md"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="w-10 h-10 md:w-12 md:h-12" > <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" /> <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /> </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" > <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" /> <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /> </svg>
                   <span className="absolute w-2 h-2 md:w-2.5 md:h-2.5 bg-white rounded-full shadow-sm" />
                 </motion.span>
               </div>

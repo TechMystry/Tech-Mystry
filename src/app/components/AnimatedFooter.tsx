@@ -106,7 +106,7 @@ export default function AnimatedFooter() {
         />
       </a>
 
-      <footer className="relative overflow-hidden bg-white text-gray-800 py-10 sm:py-12">
+      <footer className="relative overflow-hidden bg-white text-gray-800 py-8 sm:py-10 md:py-12">
         {/* Background Accent Glow */}
         <div className="absolute inset-0 -z-10">
           <div
@@ -126,7 +126,7 @@ export default function AnimatedFooter() {
         </div>
 
         {/* Main Footer Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-5 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand Info */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -135,15 +135,14 @@ export default function AnimatedFooter() {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="space-y-4"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <Image
-                src="/Logo_TechMystry_.png"
+                src="/Logo-1.png"
                 alt="TechMystry Logo"
-                width={55}
+                width={60}
                 height={45}
                 className="rounded-md"
               />
-              <h3 className="text-lg font-bold text-gray-900">TechMystry</h3>
             </div>
             <p className="text-gray-600 leading-relaxed text-sm max-w-xs">
               Crafting smart, scalable, and aesthetic digital solutions for the
@@ -246,7 +245,7 @@ export default function AnimatedFooter() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="relative z-10 border-t border-gray-400/30 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 px-4 sm:px-6">
+        <div className="relative z-10 border-t border-gray-400/30 mt-6 sm:mt-8 pt-3 sm:pt-4 flex flex-col sm:flex-row items-center justify-between text-xs sm:text-sm text-gray-600 px-4 sm:px-6">
           <p>© {currentYear} TechMystry. All rights reserved.</p>
           <p className="mt-2 sm:mt-0">
             Powered by <span className="font-semibold text-blue-500">Waardian</span>

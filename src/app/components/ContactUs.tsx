@@ -15,6 +15,7 @@ export default function ContactPage() {
   const starRef = useRef<HTMLSpanElement>(null);
   const diamondRef = useRef<HTMLSpanElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const gearRef = useRef<HTMLDivElement>(null);
 
   const controls = useAnimation();
   const inView = useInView(sectionRef, { once: true, amount: 0.3 });
@@ -32,7 +33,7 @@ export default function ContactPage() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // ✨ Smooth scroll-linked rotation
+  // ✨ Smooth scroll-linked rotation for star, diamond, and gear
   useEffect(() => {
     const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mql.matches) return;
@@ -43,11 +44,16 @@ export default function ContactPage() {
     const rotateDiamond = diamondRef.current
       ? gsap.quickTo(diamondRef.current, 'rotate', { duration: 0.3, ease: 'power3.out', transformOrigin: 'center' })
       : null;
+    const rotateGear = gearRef.current
+      ? gsap.quickTo(gearRef.current, 'rotate', { duration: 0.35, ease: 'power3.out', transformOrigin: 'center left' })
+      : null;
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
       rotateStar && rotateStar(scrollY / 2);
       rotateDiamond && rotateDiamond(-scrollY / 2);
+      // adjust divisor to control gear rotation speed — higher value = slower rotation
+      rotateGear && rotateGear(scrollY / 1.7);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -93,7 +99,7 @@ export default function ContactPage() {
         try {
           const data = await res.json();
           if (data && data.message) message = data.message;
-        } catch {}
+        } catch { }
         throw new Error(message);
       }
 
@@ -111,13 +117,52 @@ export default function ContactPage() {
   return (
     <motion.div
       ref={sectionRef}
-      initial={{ opacity: 0.6, y: 80 }}
+      initial={{ opacity: 0.35, y: 80 }}
       animate={controls}
-      className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden"
+      className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden relative"
       style={{ willChange: 'transform, opacity' }}
     >
+      {/* ---------- GEAR IMAGE (half outside right border) ---------- */}
+      {/* Save your gear image to: /public/gear-half.png */}
+      <div
+        ref={gearRef}
+        aria-hidden
+        className="fixed top-0 z-0 pointer-events-none sm:block"
+        style={{
+          // tweak this CSS variable to change how much of the gear is off-screen
+          // positive value pushes gear further offscreen; negative brings more into view
+          // default offset is -200px so roughly half of a ~400-520px gear is offscreen
+          right: 'var(--gear-offset, -200px)',
+          height: '100vh',
+          width: '520px',
+          overflow: 'hidden',
+          transformOrigin: 'center left',
+          opacity: 0.32,
+          display: 'none',
+        }}
+      >
+        {/* The img is positioned so its center lines up with the container's left edge.
+            Adjust translateX if the image needs nudging. */}
+        <img
+          src="/gear-half.png"
+          alt="gear"
+          style={{
+            height: '100%',       // fill container height to keep gear full-section tall
+            width: 'auto',
+            display: 'block',
+            // move the image left so the right side is cropped by the page edge.
+            // adjust translateX (negative => move left) to align the seam precisely.
+            transform: 'translateX(-10px)',
+            transformOrigin: 'center left',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
+      {/* ------------------------------------------------------------ */}
+
       {/* 🌠 Hero Section */}
-      <section className="relative flex flex-col justify-center pt-20 pb-32 px-6 max-w-7xl mx-auto">
+      <section className="relative flex flex-col justify-center pt-16 sm:pt-20 pb-24 sm:pb-32 px-4 sm:px-6 max-w-7xl mx-auto z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,7 +173,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: 'easeInOut' }}
-            className="text-5xl md:text-7xl font-bold leading-tight text-center md:text-left"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-center md:text-left"
           >
             Let&apos;s Launch Your
           </motion.h1>
@@ -139,7 +184,7 @@ export default function ContactPage() {
             transition={{ duration: 0.9, delay: 0.2, ease: 'easeInOut' }}
             className="flex flex-col items-center md:flex-row md:items-center mt-3 md:justify-start justify-center"
           >
-            <h1 className="text-5xl md:text-7xl font-bold text-center">Journey</h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center">Journey</h1>
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -151,18 +196,18 @@ export default function ContactPage() {
                 ref={starRef}
                 whileHover={{ scale: 1.1, rotate: 20 }}
                 transition={{ type: 'spring', stiffness: 180, damping: 12 }}
-                className="w-14 h-14 md:w-16 md:h-16 bg-[#a3c4d9] rounded-full flex items-center justify-center shadow-lg"
+                className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-[#a3c4d9] rounded-full flex items-center justify-center shadow-lg"
               >
-                <span className="text-5xl md:text-6xl text-[#0a0a0a] leading-none scale-110">★</span>
+                <span className="text-4xl sm:text-5xl md:text-6xl text-[#0a0a0a] leading-none scale-110">★</span>
               </motion.span>
 
               <motion.span
                 ref={diamondRef}
                 whileHover={{ scale: 1.1, rotate: -20 }}
                 transition={{ type: 'spring', stiffness: 180, damping: 12 }}
-                className="w-14 h-14 md:w-16 md:h-16 bg-[#c7d9c4] rounded-full flex items-center justify-center shadow-md -ml-1"
+                className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-[#c7d9c4] rounded-full flex items-center justify-center shadow-md -ml-1"
               >
-                <span className="text-5xl md:text-6xl text-[#0a0a0a] leading-none scale-110">◆</span>
+                <span className="text-4xl sm:text-5xl md:text-6xl text-[#0a0a0a] leading-none scale-110">◆</span>
               </motion.span>
             </motion.div>
           </motion.div>
@@ -170,8 +215,8 @@ export default function ContactPage() {
       </section>
 
       {/* 💬 Contact Form Section */}
-      <section className="px-6 max-w-5xl mx-auto -mt-28 relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+      <section className="px-4 sm:px-6 max-w-5xl mx-auto -mt-20 sm:-mt-28 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-start">
           {/* Left Info */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}
@@ -215,7 +260,7 @@ export default function ContactPage() {
               transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
               viewport={{ once: true }}
             >
-              <label className="block text-xs md:text-sm text-[#888] uppercase tracking-wider mb-2">
+              <label className="block text-xs sm:text-sm text-[#888] uppercase tracking-wider mb-2">
                 First & Last Name
               </label>
               <input
@@ -232,7 +277,7 @@ export default function ContactPage() {
               transition={{ duration: 0.9, delay: 0.3, ease: 'easeOut' }}
               viewport={{ once: true }}
             >
-              <label className="block text-xs md:text-sm text-[#888] uppercase tracking-wider mb-2">Email</label>
+              <label className="block text-xs sm:text-sm text-[#888] uppercase tracking-wider mb-2">Email</label>
               <input
                 {...register('email', {
                   required: 'Email is required',
@@ -251,7 +296,7 @@ export default function ContactPage() {
               transition={{ duration: 0.9, delay: 0.4, ease: 'easeOut' }}
               viewport={{ once: true }}
             >
-              <label className="block text-xs md:text-sm text-[#888] uppercase tracking-wider mb-2">
+              <label className="block text-xs sm:text-sm text-[#888] uppercase tracking-wider mb-2">
                 About Your Project
               </label>
               <textarea
@@ -271,7 +316,7 @@ export default function ContactPage() {
               whileTap={{ scale: 0.97 }}
               type="submit"
               transition={{ type: 'spring', stiffness: 220, damping: 12 }}
-              className="mt-8 inline-flex items-center gap-3 bg-[#f0f0f0] text-[#1b1b1b] px-8 py-2.5 rounded-full font-medium hover:bg-[#e3e3e3] transition-all shadow-md text-sm md:text-base disabled:opacity-60 disabled:cursor-not-allowed"
+              className="mt-6 sm:mt-8 inline-flex items-center gap-3 bg-[#f0f0f0] text-[#1b1b1b] px-6 sm:px-8 py-2 sm:py-2.5 rounded-full font-medium hover:bg-[#e3e3e3] transition-all shadow-md text-sm sm:text-base disabled:opacity-60 disabled:cursor-not-allowed"
               disabled={!isValid || submitting}
             >
               {submitting ? 'Sending…' : 'Send Message →'}

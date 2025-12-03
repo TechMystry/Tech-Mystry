@@ -99,7 +99,7 @@ export default function Navbar() {
 
             {/* Join Button */}
             {!isOpen && (
-              <button className="px-4 py-2 md:px-5 md:py-2.5 text-sm font-bold bg-lime-400 text-black rounded-full hover:bg-lime-300 transition shadow-md flex items-center h-full">
+              <button className="px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2.5 text-xs sm:text-sm font-bold bg-lime-400 text-black rounded-full hover:bg-lime-300 transition shadow-md flex items-center h-full">
                 Join
               </button>
             )}
@@ -128,7 +128,7 @@ export default function Navbar() {
                   <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-5">
                     Our Products
                   </p>
-                  <ul className="space-y-4 text-white text-lg">
+                  <ul className="space-y-3 sm:space-y-4 text-white text-base sm:text-lg">
                     <li className="hover:text-lime-400 transition cursor-pointer">
                       The Vault
                     </li>
@@ -158,7 +158,7 @@ export default function Navbar() {
                   <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-5">
                     Explore
                   </p>
-                  <ul className="space-y-4 text-white/80 text-lg">
+                  <ul className="space-y-3 sm:space-y-4 text-white/80 text-base sm:text-lg">
                     <li className="hover:text-lime-400 transition cursor-pointer">
                       Osmo Showcase
                     </li>
@@ -196,13 +196,13 @@ export default function Navbar() {
                     </div>
 
                     <h2
-                      className={`font-black text-white leading-none mb-5 ${isMobile ? "text-3xl" : "text-5xl"
+                      className={`font-black text-white leading-none mb-4 sm:mb-5 ${isMobile ? "text-2xl sm:text-3xl" : "text-4xl sm:text-5xl"
                         }`}
                     >
                       We just hit 1400 Members!
                     </h2>
 
-                    <button className="w-full py-3.5 bg-white text-black font-bold rounded-2xl hover:scale-105 transition-transform duration-200 shadow-lg text-sm md:text-base">
+                    <button className="w-full py-3 sm:py-3.5 bg-white text-black font-bold rounded-xl sm:rounded-2xl hover:scale-105 transition-transform duration-200 shadow-lg text-xs sm:text-sm md:text-base">
                       Join them
                     </button>
 
@@ -222,21 +222,23 @@ export default function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
-      </motion.nav>
+        </motion.div >
+      </motion.nav >
 
       {/* Backdrop */}
       <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={toggleMenu}
-            className="fixed inset-0 bg-black/70 backdrop-blur-md z-40"
-          />
-        )}
-      </AnimatePresence>
+        {
+          isOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={toggleMenu}
+              className="fixed inset-0 bg-black/70 backdrop-blur-md z-40"
+            />
+          )
+        }
+      </AnimatePresence >
     </>
   );
 }

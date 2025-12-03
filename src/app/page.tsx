@@ -1,7 +1,5 @@
 import HeroSection from "./components/Hero";
-import NextSection from "./components/NextSection";
-import AboutUsSection from "./components/AboutUsSection";
-import OurProcess from "./components/OurProcess";
+import { ProcessSection } from "./components/HowItWorksSection";
 import { PortfolioShowcase } from "./components/ProjectsSection";
 import CallToActionSection from "./components/CallToActionSection";
 import ContactSection from "./components/ContactUs";
@@ -12,8 +10,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <WhatWeOfferSection />
-      <OurProcess />
-
+      <ProcessSection />
       <PortfolioShowcase />
       <CallToActionSection />
       <ContactSection />
