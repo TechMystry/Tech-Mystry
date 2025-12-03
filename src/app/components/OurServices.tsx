@@ -83,6 +83,17 @@ export function WhatWeOfferSection() {
   useEffect(() => {
     if (!sectionRef.current || !triggerRef.current) return;
 
+    // Detect mobile / small screens: treat widths under 768px as mobile
+    const isMobile = typeof window !== "undefined" && (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches);
+
+    // If mobile, skip GSAP animations for cards entirely (simple scroll behavior)
+    if (isMobile) {
+      // Still ensure header & subtitle are visible (no animation)
+      if (headingRef.current) gsap.set(headingRef.current, { opacity: 1, y: 0 });
+      if (subtitleRef.current) gsap.set(subtitleRef.current, { opacity: 1, y: 0 });
+      return;
+    }
+
     const ctx = gsap.context(() => {
       // Set initial state for header & subtitle
       if (headingRef.current) {
@@ -206,7 +217,7 @@ export function WhatWeOfferSection() {
           </div>
 
           {/* Services Grid */}
-          <div className="flex justify-center">
+          <div className="flex justify-start md:justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
               {mainGroup.map((service) => {
                 const pos = mousePosition[service.id] || { x: 0, y: 0 };
@@ -223,15 +234,15 @@ export function WhatWeOfferSection() {
                   >
                     {/* Card with vignette + subtle shine */}
                     <div
-                      className="relative min-h-[280px] sm:min-h-[320px] md:min-h-[340px] lg:h-80 rounded-xl sm:rounded-2xl transition-all duration-500 ease-out"
+                      className="relative min-h-[240px] sm:min-h-[280px] md:min-h-[300px] lg:h-72 rounded-xl sm:rounded-2xl transition-all duration-500 ease-out"
                       style={{
                         background: `
-                          linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0.00) 60%),
-                          radial-gradient(circle at 50% 35%, rgba(255,255,255,0.06), rgba(255,255,255,0) 30%),
-                          ${service.color}
-                        `,
+                linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0.00) 60%),
+                radial-gradient(circle at 50% 35%, rgba(255,255,255,0.06), rgba(255,255,255,0) 30%),
+                ${service.color}
+              `,
                         transform: isHovered
-                          ? `rotateX(${(pos.y - 160) / 22}deg) rotateY(${(pos.x - 100) / 22}deg)`
+                          ? `rotateX(${(pos.y - 140) / 22}deg) rotateY(${(pos.x - 100) / 22}deg)`
                           : "rotateX(0deg) rotateY(0deg)",
                         transformStyle: "preserve-3d",
                         boxShadow: "none",
@@ -241,16 +252,16 @@ export function WhatWeOfferSection() {
                     >
                       <div className="absolute inset-0 rounded-2xl p-[2px]">
                         <div
-                          className="h-full w-full rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden"
+                          className="h-full w-full rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 flex flex-col justify-between relative overflow-hidden"
                           style={{ background: "transparent" }}
                         >
                           {/* Label */}
                           <div className="relative z-10">
                             <div
-                              className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 bg-white"
+                              className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-5 bg-white"
                               style={{
                                 transform: isHovered
-                                  ? `translate(${(pos.x - 100) / 28}px, ${(pos.y - 160) / 28}px)`
+                                  ? `translate(${(pos.x - 100) / 28}px, ${(pos.y - 140) / 28}px)`
                                   : "translate(0, 0)",
                                 transition: "transform 0.2s ease-out"
                               }}
@@ -268,7 +279,7 @@ export function WhatWeOfferSection() {
                               style={{
                                 textShadow: "0 1px 0 rgba(0,0,0,0.35)",
                                 transform: isHovered
-                                  ? `translate(${(pos.x - 100) / 24}px, ${(pos.y - 160) / 24}px)`
+                                  ? `translate(${(pos.x - 100) / 24}px, ${(pos.y - 140) / 24}px)`
                                   : "translate(0, 0)",
                                 transition: "transform 0.2s ease-out"
                               }}
@@ -281,8 +292,8 @@ export function WhatWeOfferSection() {
                           <div
                             className="absolute bottom-0 right-0"
                             style={{
-                              width: 120,
-                              height: 120,
+                              width: 100,
+                              height: 100,
                               background: "linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.12))",
                               clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
                               transform: isHovered ? "scale(1.12)" : "scale(1)",
@@ -293,10 +304,10 @@ export function WhatWeOfferSection() {
 
                           {/* Top-right mark */}
                           <div
-                            className="absolute top-6 right-6"
+                            className="absolute top-5 right-5"
                             style={{
-                              width: 48,
-                              height: 48,
+                              width: 40,
+                              height: 40,
                               borderTop: "2px solid rgba(255,255,255,0.12)",
                               borderRight: "2px solid rgba(255,255,255,0.12)",
                               transform: isHovered ? "scale(1.12)" : "scale(1)",
@@ -315,7 +326,7 @@ export function WhatWeOfferSection() {
 
           {/* Bottom two cards centered */}
           {bottomPair.length > 0 && (
-            <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center">
+            <div className="mt-8 sm:mt-10 md:mt-12 flex justify-start md:justify-center">
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full max-w-3xl justify-center">
                 {bottomPair.map((service) => {
                   const pos = mousePosition[service.id] || { x: 0, y: 0 };
@@ -331,15 +342,15 @@ export function WhatWeOfferSection() {
                       style={{ perspective: "1000px" }}
                     >
                       <div
-                        className="relative min-h-[260px] sm:min-h-[280px] md:h-72 rounded-xl sm:rounded-2xl transition-all duration-500 ease-out"
+                        className="relative min-h-[220px] sm:min-h-[240px] md:h-64 rounded-xl sm:rounded-2xl transition-all duration-500 ease-out"
                         style={{
                           background: `
-                            linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0.00) 60%),
-                            radial-gradient(circle at 50% 30%, rgba(255,255,255,0.06), rgba(255,255,255,0) 30%),
-                            ${service.color}
-                          `,
+                  linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0.00) 60%),
+                  radial-gradient(circle at 50% 30%, rgba(255,255,255,0.06), rgba(255,255,255,0) 30%),
+                  ${service.color}
+                `,
                           transform: isHovered
-                            ? `rotateX(${(pos.y - 140) / 22}deg) rotateY(${(pos.x - 100) / 22}deg)`
+                            ? `rotateX(${(pos.y - 120) / 22}deg) rotateY(${(pos.x - 100) / 22}deg)`
                             : "rotateX(0deg) rotateY(0deg)",
                           transformStyle: "preserve-3d",
                           boxShadow: "none",
@@ -353,7 +364,7 @@ export function WhatWeOfferSection() {
                               className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-3 sm:mb-4 bg-white"
                               style={{
                                 transform: isHovered
-                                  ? `translate(${(pos.x - 100) / 28}px, ${(pos.y - 140) / 28}px)`
+                                  ? `translate(${(pos.x - 100) / 28}px, ${(pos.y - 120) / 28}px)`
                                   : "translate(0, 0)",
                                 transition: "transform 0.2s ease-out"
                               }}
@@ -364,11 +375,11 @@ export function WhatWeOfferSection() {
                             </div>
 
                             <p
-                              className="text-white text-base font-extrabold leading-tight"
+                              className="text-white text-sm sm:text-base font-extrabold leading-tight"
                               style={{
                                 textShadow: "0 1px 0 rgba(0,0,0,0.35)",
                                 transform: isHovered
-                                  ? `translate(${(pos.x - 100) / 24}px, ${(pos.y - 140) / 24}px)`
+                                  ? `translate(${(pos.x - 100) / 24}px, ${(pos.y - 120) / 24}px)`
                                   : "translate(0, 0)",
                                 transition: "transform 0.2s ease-out"
                               }}
@@ -379,8 +390,8 @@ export function WhatWeOfferSection() {
                             <div
                               className="absolute bottom-0 right-0"
                               style={{
-                                width: 96,
-                                height: 96,
+                                width: 80,
+                                height: 80,
                                 background: "linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.1))",
                                 clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
                                 transform: isHovered ? "scale(1.1)" : "scale(1)",
@@ -397,6 +408,7 @@ export function WhatWeOfferSection() {
               </div>
             </div>
           )}
+
         </div>
       </div>
     </div>

@@ -15,7 +15,6 @@ export default function ContactPage() {
   const starRef = useRef<HTMLSpanElement>(null);
   const diamondRef = useRef<HTMLSpanElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const gearRef = useRef<HTMLDivElement>(null);
 
   const controls = useAnimation();
   const inView = useInView(sectionRef, { once: true, amount: 0.3 });
@@ -33,7 +32,7 @@ export default function ContactPage() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // ✨ Smooth scroll-linked rotation for star, diamond, and gear
+  // ✨ Smooth scroll-linked rotation for star and diamond (gear removed)
   useEffect(() => {
     const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mql.matches) return;
@@ -44,16 +43,11 @@ export default function ContactPage() {
     const rotateDiamond = diamondRef.current
       ? gsap.quickTo(diamondRef.current, 'rotate', { duration: 0.3, ease: 'power3.out', transformOrigin: 'center' })
       : null;
-    const rotateGear = gearRef.current
-      ? gsap.quickTo(gearRef.current, 'rotate', { duration: 0.35, ease: 'power3.out', transformOrigin: 'center left' })
-      : null;
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
       rotateStar && rotateStar(scrollY / 2);
       rotateDiamond && rotateDiamond(-scrollY / 2);
-      // adjust divisor to control gear rotation speed — higher value = slower rotation
-      rotateGear && rotateGear(scrollY / 1.7);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -122,44 +116,9 @@ export default function ContactPage() {
       className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden relative"
       style={{ willChange: 'transform, opacity' }}
     >
-      {/* ---------- GEAR IMAGE (half outside right border) ---------- */}
-      {/* Save your gear image to: /public/gear-half.png */}
-      <div
-        ref={gearRef}
-        aria-hidden
-        className="fixed top-0 z-0 pointer-events-none sm:block"
-        style={{
-          // tweak this CSS variable to change how much of the gear is off-screen
-          // positive value pushes gear further offscreen; negative brings more into view
-          // default offset is -200px so roughly half of a ~400-520px gear is offscreen
-          right: 'var(--gear-offset, -200px)',
-          height: '100vh',
-          width: '520px',
-          overflow: 'hidden',
-          transformOrigin: 'center left',
-          opacity: 0.32,
-          display: 'none',
-        }}
-      >
-        {/* The img is positioned so its center lines up with the container's left edge.
-            Adjust translateX if the image needs nudging. */}
-        <img
-          src="/gear-half.png"
-          alt="gear"
-          style={{
-            height: '100%',       // fill container height to keep gear full-section tall
-            width: 'auto',
-            display: 'block',
-            // move the image left so the right side is cropped by the page edge.
-            // adjust translateX (negative => move left) to align the seam precisely.
-            transform: 'translateX(-10px)',
-            transformOrigin: 'center left',
-            userSelect: 'none',
-            pointerEvents: 'none',
-          }}
-        />
-      </div>
-      {/* ------------------------------------------------------------ */}
+      {/* ------------------------------------------------------------
+          Gear removed per request (no gear markup here)
+         ------------------------------------------------------------ */}
 
       {/* 🌠 Hero Section */}
       <section className="relative flex flex-col justify-center pt-16 sm:pt-20 pb-24 sm:pb-32 px-4 sm:px-6 max-w-7xl mx-auto z-10">
@@ -221,21 +180,25 @@ export default function ContactPage() {
           <motion.div
             initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
+            transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
+            className="w-full text-left flex flex-col items-start ml-0 -ml-6 sm:-ml-10 md:-ml-14"
           >
-            <p className="text-[#b8b8b8] text-base md:text-lg leading-relaxed">
+            <p className="text-[#b8b8b8] text-base md:text-lg leading-relaxed max-w-xl">
               We offer free consultations for your next digital product or service.
               Let’s discuss how we can help you build, scale, and optimize your idea.
             </p>
+
             <div className="mt-10 space-y-3">
               <p className="text-xs text-[#888] uppercase tracking-wider">Contact Us</p>
+
               <a
                 href="mailto:dev.techmystry@gmail.com"
                 className="block text-white hover:text-[#cbbaba] transition-colors text-sm md:text-base"
               >
                 dev.techmystry@gmail.com
               </a>
+
               <a
                 href="tel:+918805526198"
                 className="block text-white hover:text-[#cbbaba] transition-colors text-sm md:text-base"
@@ -244,6 +207,7 @@ export default function ContactPage() {
               </a>
             </div>
           </motion.div>
+
 
           {/* Right Form */}
           <motion.form

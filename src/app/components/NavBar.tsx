@@ -50,15 +50,15 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Navbar Wrapper */}
+      {/* Navbar Wrapper - Removed fixed positioning, added top positioning */}
       <motion.nav
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+        className="relative z-50 pointer-events-none mt-8"
         animate={navControls}
         initial="closed"
       >
         <motion.div
           ref={navRef}
-          className="relative overflow-hidden bg-black/95 backdrop-blur-xl border border-white/10 shadow-xl pointer-events-auto mx-2 md:mx-0"
+          className="relative overflow-hidden bg-black/95 backdrop-blur-xl border border-white/10 shadow-xl pointer-events-auto mx-2 md:mx-auto"
           variants={{
             closed: {
               width: isMobile ? "calc(100vw - 32px)" : "420px",
@@ -94,8 +94,18 @@ export default function Navbar() {
 
             {/* Logo */}
             <h1 className="absolute left-1/2 -translate-x-1/2 font-black text-xl md:text-2xl tracking-tighter text-white pointer-events-none flex items-center">
-              TechMystry
+              Tech
+              <span className="relative">
+                Mystry
+                {/* Subtext directly under Mystry */}
+                <span className="absolute left-1/2 -translate-x-1/2 translate-x-[2px] top-full text-[5px] md:text-[7px] tracking-wider whitespace-nowrap">
+                  <span className="text-white/70">by </span>
+                  <span className="text-blue-400">waardian</span>
+                </span>
+
+              </span>
             </h1>
+
 
             {/* Join Button */}
             {!isOpen && (
@@ -222,23 +232,21 @@ export default function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div >
-      </motion.nav >
+        </motion.div>
+      </motion.nav>
 
       {/* Backdrop */}
       <AnimatePresence>
-        {
-          isOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={toggleMenu}
-              className="fixed inset-0 bg-black/70 backdrop-blur-md z-40"
-            />
-          )
-        }
-      </AnimatePresence >
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={toggleMenu}
+            className="fixed inset-0 bg-black/70 backdrop-blur-md z-40"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
