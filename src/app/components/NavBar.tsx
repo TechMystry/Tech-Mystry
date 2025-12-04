@@ -48,17 +48,52 @@ export default function Navbar() {
     }
   };
 
+  // Close menu when clicking on any link
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // For hash links, handle navigation manually
+    if (href.startsWith('#')) {
+      e.preventDefault();
+
+      // Close the menu first
+      menuControls.start("hidden");
+      navControls.start("closed");
+      setIsOpen(false);
+
+      // Navigate to the section after menu fully closes
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          // Get element position
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - 100; // 100px offset for navbar
+
+          // Smooth scroll to position
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 500); // Wait for navbar close animation (450ms) + small buffer
+    } else {
+      // For regular links (like /ContactForm), just close the menu
+      menuControls.start("hidden");
+      navControls.start("closed");
+      setIsOpen(false);
+    }
+  };
+
   return (
     <>
-      {/* Navbar Wrapper - Removed fixed positioning, added top positioning */}
+      {/* Navbar Wrapper - Centered on all screens */}
       <motion.nav
-        className="relative z-50 pointer-events-none mt-8"
+        className="relative z-50 pointer-events-none mt-8 flex justify-center"
         animate={navControls}
         initial="closed"
       >
         <motion.div
           ref={navRef}
-          className="relative overflow-hidden bg-black/95 backdrop-blur-xl border border-white/10 shadow-xl pointer-events-auto mx-2 md:mx-auto"
+          className="relative overflow-hidden bg-black/95 backdrop-blur-xl border border-white/10 shadow-xl pointer-events-auto"
+          animate={isOpen ? "open" : "closed"}
           variants={{
             closed: {
               width: isMobile ? "calc(100vw - 32px)" : "420px",
@@ -67,8 +102,8 @@ export default function Navbar() {
               transition: { duration: 0.45, ease: "easeInOut" },
             },
             open: {
-              width: isMobile ? "calc(100vw - 16px)" : "min(1380px, calc(100vw - 32px))",
-              height: isMobile ? "auto" : "auto",
+              width: isMobile ? "calc(100vw - 32px)" : "min(1380px, calc(100vw - 64px))",
+              height: "auto",
               minHeight: isMobile ? 480 : 560,
               maxHeight: isMobile ? "85vh" : "auto",
               borderRadius: isMobile ? "26px" : "30px",
@@ -141,19 +176,19 @@ export default function Navbar() {
                   </p>
                   <ul className="space-y-3 sm:space-y-4 text-white text-base sm:text-lg">
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="#home">Home</a>
+                      <a href="#home" onClick={(e) => handleLinkClick(e, "#home")}>Home</a>
                     </li>
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="#services">Services</a>
+                      <a href="#services" onClick={(e) => handleLinkClick(e, "#services")}>Services</a>
                     </li>
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="#process">Our Process</a>
+                      <a href="#process" onClick={(e) => handleLinkClick(e, "#process")}>Our Process</a>
                     </li>
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="#portfolio">Portfolio</a>
+                      <a href="#portfolio" onClick={(e) => handleLinkClick(e, "#portfolio")}>Portfolio</a>
                     </li>
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="/ContactForm">Contact</a>
+                      <a href="/ContactForm" onClick={(e) => handleLinkClick(e, "/ContactForm")}>Contact</a>
                     </li>
                   </ul>
                 </div>
@@ -165,13 +200,13 @@ export default function Navbar() {
                   </p>
                   <ul className="space-y-3 sm:space-y-4 text-white/80 text-base sm:text-lg">
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="#portfolio">Websites</a>
+                      <a href="#portfolio" onClick={(e) => handleLinkClick(e, "#portfolio")}>Websites</a>
                     </li>
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="#portfolio">Applications</a>
+                      <a href="#portfolio" onClick={(e) => handleLinkClick(e, "#portfolio")}>Applications</a>
                     </li>
                     <li className="hover:text-lime-400 transition cursor-pointer">
-                      <a href="#portfolio">CRM Systems</a>
+                      <a href="#portfolio" onClick={(e) => handleLinkClick(e, "#portfolio")}>CRM Systems</a>
                     </li>
                   </ul>
                   <div
@@ -230,7 +265,7 @@ export default function Navbar() {
                       </li>
                     </ul>
 
-                    <a href="/ContactForm">
+                    <a href="/ContactForm" onClick={(e) => handleLinkClick(e, "/ContactForm")}>
                       <button className="w-full py-2.5 sm:py-3 md:py-3.5 bg-white text-black font-bold rounded-xl sm:rounded-2xl hover:scale-105 transition-transform duration-200 shadow-lg text-xs sm:text-sm md:text-base">
                         Get Started
                       </button>

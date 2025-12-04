@@ -153,7 +153,7 @@ export function Footer() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-10 sm:mb-12 lg:mb-14"
           >
             {/* Column 1 - Quick Links */}
-            <div className="grid-item group">
+            <div className="grid-item group text-center sm:text-left">
               <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
                 Quick Links
               </h4>
@@ -168,7 +168,7 @@ export function Footer() {
                   <li key={idx} className="footer-link group/link">
                     <a
                       href={link.href}
-                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 group-hover/link:translate-x-2"
+                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 justify-center sm:justify-start group-hover/link:translate-x-2"
                     >
                       {link.name}
                     </a>
@@ -178,7 +178,7 @@ export function Footer() {
             </div>
 
             {/* Column 2 - Services */}
-            <div className="grid-item group">
+            <div className="grid-item group text-center sm:text-left">
               <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
                 Services
               </h4>
@@ -192,7 +192,7 @@ export function Footer() {
                   <li key={idx} className="footer-link group/link">
                     <a
                       href={service.href}
-                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 group-hover/link:translate-x-2"
+                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 justify-center sm:justify-start group-hover/link:translate-x-2"
                     >
                       {service.name}
                     </a>
@@ -202,7 +202,7 @@ export function Footer() {
             </div>
 
             {/* Column 3 - Company */}
-            <div className="grid-item group">
+            <div className="grid-item group text-center sm:text-left">
               <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
                 Company
               </h4>
@@ -215,7 +215,7 @@ export function Footer() {
                   <li key={idx} className="footer-link group/link">
                     <a
                       href={item.href}
-                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 group-hover/link:translate-x-2"
+                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 justify-center sm:justify-start group-hover/link:translate-x-2"
                     >
                       {item.name}
                     </a>
@@ -225,7 +225,7 @@ export function Footer() {
             </div>
 
             {/* Column 4 - Contact */}
-            <div className="grid-item group">
+            <div className="grid-item group text-center sm:text-left">
               <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
                 Contact
               </h4>
@@ -233,7 +233,7 @@ export function Footer() {
                 <li className="footer-link group/link">
                   <a
                     href="mailto:dev.techmystry@gmail.com"
-                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3"
+                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3 justify-center sm:justify-start"
                   >
                     <Mail className="w-5 h-5 flex-shrink-0 mt-0.5 group-hover/link:scale-110 transition-transform" />
                     <span className="break-all">dev.techmystry@gmail.com</span>
@@ -242,7 +242,7 @@ export function Footer() {
                 <li className="footer-link group/link">
                   <a
                     href="tel:+918805526198"
-                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3"
+                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3 justify-center sm:justify-start"
                   >
                     <Phone className="w-5 h-5 flex-shrink-0 mt-0.5 group-hover/link:scale-110 transition-transform" />
                     <span className="break-all">+91 8805526198 / 7038230674</span>
@@ -251,7 +251,7 @@ export function Footer() {
                 <li className="footer-link group/link">
                   <a
                     href="#"
-                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3"
+                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3 justify-center sm:justify-start"
                   >
                     <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5 group-hover/link:scale-110 transition-transform" />
                     <span>Pune, Maharashtra</span>
@@ -264,7 +264,7 @@ export function Footer() {
                 <p className="text-xs uppercase tracking-wider text-black/80 mb-4">
                   Follow Us
                 </p>
-                <div className="flex gap-3">
+                <div className="flex gap-3 justify-center sm:justify-start">
                   {[
                     { Icon: Linkedin, href: "https://www.linkedin.com/company/techmystrym" },
                     { Icon: Youtube, href: "https://youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
