@@ -98,7 +98,7 @@ const projects: Record<string, Project[]> = {
       date: "2024",
       client: "Waardian",
       results: [
-        { metric: "Societies Onboarded", value: "50+" },
+        { metric: "Onboarded", value: "50+" },
         { metric: "Transactions", value: "1M+" },
         { metric: "Rating", value: "4.9/5" }
       ],
@@ -214,7 +214,7 @@ export function PortfolioShowcase() {
   };
 
   return (
-    <div className="min-h-screen bg-white py-12 sm:py-16 px-4 relative overflow-hidden">
+    <div id="portfolio" className="min-h-screen bg-white py-12 sm:py-16 px-4 relative overflow-hidden scroll-mt-24">
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Header Section */}
         <div className="text-center mb-10 sm:mb-12">

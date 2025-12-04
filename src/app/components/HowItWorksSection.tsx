@@ -102,7 +102,7 @@ export function ProcessSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="min-h-screen bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div id="process" ref={sectionRef} className="min-h-screen bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden scroll-mt-24">
       {/* Subtle background gradient orbs */}
       <div className="absolute top-0 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-black/[0.02] rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-black/[0.02] rounded-full blur-3xl" />

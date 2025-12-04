@@ -1,6 +1,6 @@
 import "./globals.css";
 import Navbar from "./components/NavBar";
-import AnimatedFooter from "./components/AnimatedFooter";
+import { Footer } from "./components/AnimatedFooter";
 
 export const metadata = {
   title: "TechMystry",
@@ -21,7 +21,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         {children}
-        <AnimatedFooter />
+        <Footer />
       </body>
     </html>
   );

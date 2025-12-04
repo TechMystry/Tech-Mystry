@@ -197,7 +197,7 @@ export function WhatWeOfferSection() {
   };
 
   return (
-    <div ref={triggerRef} className="min-h-screen bg-white text-black">
+    <div id="services" ref={triggerRef} className="min-h-screen bg-white text-black scroll-mt-24">
       <div ref={sectionRef} className="min-h-screen py-20 px-4">
         <div className="container mx-auto max-w-7xl">
           {/* Header Section */}

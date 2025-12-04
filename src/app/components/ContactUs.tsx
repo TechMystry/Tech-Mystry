@@ -110,10 +110,11 @@ export default function ContactPage() {
 
   return (
     <motion.div
+      id="contact"
       ref={sectionRef}
       initial={{ opacity: 0.35, y: 80 }}
       animate={controls}
-      className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden relative"
+      className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden relative scroll-mt-24"
       style={{ willChange: 'transform, opacity' }}
     >
       {/* ------------------------------------------------------------

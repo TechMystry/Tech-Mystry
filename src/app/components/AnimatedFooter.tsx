@@ -1,76 +1,104 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
-  Phone,
   Mail,
+  Phone,
   MapPin,
-  ArrowRight,
-  Twitter,
-  Github,
   Linkedin,
-  Instagram,
   Youtube,
+  Instagram,
 } from "lucide-react";
-import Image from "next/image";
 
-export default function AnimatedFooter() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const router = useRouter();
+gsap.registerPlugin(ScrollTrigger);
+
+export function Footer() {
+  const footerRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  const services = [
-    { name: "Web Development", href: "/services/web" },
-    { name: "Mobile Apps", href: "/services/mobile" },
-    { name: "SEO Optimization", href: "/services/seo" },
-    { name: "Cloud Solutions", href: "/services/cloud" },
-  ];
-
-  const quickLinks = [
-    { label: "Home", href: "#home" },
-    { label: "Services", href: "#expertise" },
-    { label: "Process", href: "#process" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "/ContactForm" },
-  ];
-
-  // FIXED: Hardcoded URLs to prevent SSR/Client mismatch
-  const socialLinks = [
-    { icon: Linkedin, href: "https://www.linkedin.com/company/techmystrymedia/" },
-    { icon: Instagram, href: "https://www.instagram.com/techmystry?igsh=MWFhbWV6aDNwYXZvdQ==" },
-    { icon: Youtube, href: "https://youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
-  ];
-
-  const currentYear = new Date().getFullYear();
-
-  const handleQuickLink = (href: string) => {
-    if (href.startsWith("#")) {
-      if (window.location.pathname === "/") {
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      } else {
-        router.push("/" + href);
+    const ctx = gsap.context(() => {
+      // Marquee animation
+      const marqueeText = marqueeRef.current?.querySelector(".marquee-text");
+      if (marqueeText) {
+        gsap.to(marqueeText, {
+          x: "-50%",
+          duration: 20,
+          repeat: -1,
+          ease: "none",
+        });
       }
-    } else {
-      router.push(href);
-    }
-  };
 
-  const handleServiceClick = (href: string) => {
-    router.push(href);
-    router.refresh();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+      // Grid items stagger animation
+      const gridItems = gridRef.current?.querySelectorAll(".grid-item");
+      if (gridItems) {
+        gridItems.forEach((item) => {
+          gsap.from(item, {
+            scrollTrigger: {
+              trigger: item,
+              start: "top 90%",
+              end: "top 70%",
+              scrub: 1,
+            },
+            opacity: 0,
+            y: 60,
+            scale: 0.9,
+          });
+        });
+      }
+
+      // Links stagger animation
+      const links = document.querySelectorAll(".footer-link");
+      links.forEach((link) => {
+        gsap.from(link, {
+          scrollTrigger: {
+            trigger: link,
+            start: "top 92%",
+            end: "top 78%",
+            scrub: 1,
+          },
+          opacity: 0,
+          x: -30,
+        });
+      });
+
+      // Social icons animation
+      const socialIcons = document.querySelectorAll(".social-icon");
+      socialIcons.forEach((icon) => {
+        gsap.from(icon, {
+          scrollTrigger: {
+            trigger: icon,
+            start: "top 92%",
+            end: "top 75%",
+            scrub: 1,
+          },
+          scale: 0,
+          rotation: 0,
+        });
+      });
+
+      // Bottom section animation
+      if (bottomRef.current) {
+        gsap.from(bottomRef.current, {
+          scrollTrigger: {
+            trigger: bottomRef.current,
+            start: "top 95%",
+            end: "top 85%",
+            scrub: 1,
+          },
+          opacity: 0,
+          y: 20,
+        });
+      }
+    }, footerRef);
+
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <>
@@ -79,16 +107,7 @@ export default function AnimatedFooter() {
         href="https://wa.me/918805526198"
         target="_blank"
         rel="noopener noreferrer"
-        className="
-          fixed z-50 
-          right-0 top-1/2 -translate-y-1/2 
-          flex items-center justify-center 
-          rounded-full shadow-2xl 
-          transition-all duration-500 ease-out
-          hover:scale-110 
-          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-          group
-        "
+        className="fixed z-50 right-0 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full shadow-2xl transition-all duration-500 ease-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 group"
         style={{
           width: '48px',
           height: '48px',
@@ -106,166 +125,187 @@ export default function AnimatedFooter() {
         />
       </a>
 
-      <footer className="relative overflow-hidden bg-white text-gray-800 py-8 sm:py-10 md:py-12">
-        {/* Background Accent Glow */}
-        <div className="absolute inset-0 -z-10">
+      <footer
+        ref={footerRef}
+        className="relative bg-white text-black overflow-hidden"
+      >
+        {/* Top marquee section */}
+        <div
+          ref={marqueeRef}
+          className="border-b border-black/10 overflow-hidden py-6 sm:py-8"
+        >
+          <div className="marquee-text whitespace-nowrap inline-block">
+            {[...Array(2)].map((_, i) => (
+              <span
+                key={i}
+                className="inline-block text-6xl sm:text-7xl lg:text-8xl mx-8 opacity-7"
+              >
+                TechMystry • TechMystry • TechMystry • TechMystry • TechMystry •
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16">
+          {/* Main Grid */}
           <div
-            className="absolute top-0 left-0 w-[250px] h-[250px] bg-gray-400/20 rounded-full blur-3xl"
-            style={{
-              transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`,
-              transition: "transform 0.4s ease-out",
-            }}
-          />
+            ref={gridRef}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-10 sm:mb-12 lg:mb-14"
+          >
+            {/* Column 1 - Quick Links */}
+            <div className="grid-item group">
+              <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
+                Quick Links
+              </h4>
+              <ul className="space-y-3 sm:space-y-4">
+                {[
+                  { name: "Home", href: "#home" },
+                  { name: "Services", href: "#services" },
+                  { name: "Our Process", href: "#process" },
+                  { name: "Portfolio", href: "#portfolio" },
+                  { name: "Contact", href: "/ContactForm" },
+                ].map((link, idx) => (
+                  <li key={idx} className="footer-link group/link">
+                    <a
+                      href={link.href}
+                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 group-hover/link:translate-x-2"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 2 - Services */}
+            <div className="grid-item group">
+              <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
+                Services
+              </h4>
+              <ul className="space-y-3 sm:space-y-4">
+                {[
+                  { name: "Web Development", href: "#services" },
+                  { name: "Mobile Applications", href: "#services" },
+                  { name: "UI/UX Design", href: "#services" },
+                  { name: "Full Stack Development", href: "#services" },
+                ].map((service, idx) => (
+                  <li key={idx} className="footer-link group/link">
+                    <a
+                      href={service.href}
+                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 group-hover/link:translate-x-2"
+                    >
+                      {service.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3 - Company */}
+            <div className="grid-item group">
+              <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
+                Company
+              </h4>
+              <ul className="space-y-3 sm:space-y-4 mb-8 sm:mb-12">
+                {[
+                  { name: "Our Work", href: "#portfolio" },
+                  { name: "Our Process", href: "#process" },
+                  { name: "Contact Us", href: "/ContactForm" },
+                ].map((item, idx) => (
+                  <li key={idx} className="footer-link group/link">
+                    <a
+                      href={item.href}
+                      className="text-black/60 hover:text-black transition-all duration-300 text-sm sm:text-base flex items-center gap-3 group-hover/link:translate-x-2"
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 4 - Contact */}
+            <div className="grid-item group">
+              <h4 className="text-lg sm:text-xl mb-6 sm:mb-8 uppercase tracking-wider">
+                Contact
+              </h4>
+              <ul className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
+                <li className="footer-link group/link">
+                  <a
+                    href="mailto:dev.techmystry@gmail.com"
+                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3"
+                  >
+                    <Mail className="w-5 h-5 flex-shrink-0 mt-0.5 group-hover/link:scale-110 transition-transform" />
+                    <span className="break-all">dev.techmystry@gmail.com</span>
+                  </a>
+                </li>
+                <li className="footer-link group/link">
+                  <a
+                    href="tel:+918805526198"
+                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3"
+                  >
+                    <Phone className="w-5 h-5 flex-shrink-0 mt-0.5 group-hover/link:scale-110 transition-transform" />
+                    <span className="break-all">+91 8805526198 / 7038230674</span>
+                  </a>
+                </li>
+                <li className="footer-link group/link">
+                  <a
+                    href="#"
+                    className="text-black/60 hover:text-black transition-colors duration-300 text-sm sm:text-base flex items-start gap-3"
+                  >
+                    <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5 group-hover/link:scale-110 transition-transform" />
+                    <span>Pune, Maharashtra</span>
+                  </a>
+                </li>
+              </ul>
+
+              {/* Social */}
+              <div>
+                <p className="text-xs uppercase tracking-wider text-black/80 mb-4">
+                  Follow Us
+                </p>
+                <div className="flex gap-3">
+                  {[
+                    { Icon: Linkedin, href: "https://www.linkedin.com/company/techmystrym" },
+                    { Icon: Youtube, href: "https://youtube.com/@techmystrymedia?si=QFehGN1LFBXckORI" },
+                    { Icon: Instagram, href: "https://www.instagram.com/techmystry?igsh=MWFhbWV6aDNwYXZvdQ==" },
+                  ].map((social, idx) => (
+                    <a
+                      key={idx}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-icon group/social bg-black text-white w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-white hover:text-black border-2 border-black transition-all duration-300 hover:scale-110"
+                    >
+                      <social.Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom - Rights */}
           <div
-            className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-gray-500/25 rounded-full blur-3xl"
-            style={{
-              transform: `translate(${-mousePosition.x * 0.008}px, ${-mousePosition.y * 0.008}px)`,
-              transition: "transform 0.4s ease-out",
-            }}
-          />
-        </div>
-
-        {/* Main Footer Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-5 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {/* Brand Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="space-y-4"
+            ref={bottomRef}
+            className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-black/10 pt-4"
           >
-            <div className="flex items-center gap-2">
-              <Image
-                src="/Logo-1.png"
-                alt="TechMystry Logo"
-                width={60}
-                height={45}
-                className="rounded-md"
-              />
-            </div>
-            <p className="text-gray-600 leading-relaxed text-sm max-w-xs">
-              Crafting smart, scalable, and aesthetic digital solutions for the
-              modern web.
+            <p className="text-xs sm:text-sm text-black/60">
+              © {new Date().getFullYear()} TechMystry. All rights reserved.
             </p>
-            <div className="space-y-1 text-sm text-gray-700">
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-gray-500" />
-                <span>+91 8805526198</span>
-                <span>+91 7038230674</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-gray-500" />
-                <span>dev.techmystry@gmail.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-gray-500" />
-                <span>Pune, India</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.25 }}
-          >
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">
-              Our Services
-            </h3>
-            <ul className="space-y-2 text-sm text-gray-600">
-              {services.map(({ name, href }, i) => (
-                <li key={i}>
-                  <button
-                    onClick={() => handleServiceClick(href)}
-                    className="flex items-center gap-2 group hover:text-gray-900 transition-all duration-300"
-                  >
-                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-all" />
-                    {name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-          >
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">
-              Quick Links
-            </h3>
-            <ul className="space-y-2 text-sm text-gray-600">
-              {quickLinks.map(({ label, href }, i) => (
-                <li key={i}>
-                  <button
-                    onClick={() => handleQuickLink(href)}
-                    className="flex items-center gap-2 group hover:text-gray-900 transition-all duration-300"
-                  >
-                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-all" />
-                    {label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Social Media */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-          >
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">
-              Connect With Us
-            </h3>
-            <div className="flex gap-3 mb-3">
-              {socialLinks.map(({ icon: Icon, href }, i) => (
-                <a
-                  key={i}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 bg-gray-300/30 rounded-full hover:bg-gray-400/40 text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-110"
-                >
-                  <Icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
-            <p className="text-gray-500 text-sm leading-snug">
-              Follow us for updates, ideas, and behind-the-scenes creativity.
+            <p className="text-xs sm:text-sm text-black/60">
+              Powered by{" "}
+              <a
+                href="https://waardian.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
+              >
+                waardian
+              </a>
             </p>
-          </motion.div>
+          </div>
         </div>
-
-        {/* Footer Bottom */}
-        <div className="relative z-10 border-t border-gray-400/30 mt-6 sm:mt-8 pt-3 sm:pt-4 flex flex-col sm:flex-row items-center justify-between text-xs sm:text-sm text-gray-600 px-4 sm:px-6">
-          <p>© {currentYear} TechMystry. All rights reserved.</p>
-          <p className="mt-2 sm:mt-0">
-            Powered by <span className="font-semibold text-blue-500">Waardian</span>
-          </p>
-        </div>
-
-        {/* Animations */}
-        <style jsx>{`
-          @keyframes float {
-            0%,
-            100% {
-              transform: translateY(0);
-              opacity: 0.2;
-            }
-            50% {
-              transform: translateY(-10px);
-              opacity: 0.4;
-            }
-          }
-        `}</style>
       </footer>
     </>
   );
